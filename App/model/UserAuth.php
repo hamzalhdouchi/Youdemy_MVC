@@ -2,6 +2,7 @@
 
 namespace App\Model;
 use App\Config\Database;
+use PDO,Exception;
 class UserAuth
 {
     
@@ -120,5 +121,34 @@ class UserAuth
         return $this->username;
     }
 
+    public function loginUser($email, $password)
+    {
+        $this->setEmail($email);
 
+        $stmt = $this->connect->prepare("SELECT * FROM utilisateur WHERE email = :email");
+        $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $this->setId($user['id']);
+            $this->setEmail($user['email']);
+            $this->setPassword($user['motDePasse']);
+            $this->setStatus($user['statut']);
+            $this->setAction($user['Action']);
+            $this->setName($user['nom']);
+            $this->setUsername($user['prenom']);
+            $this->setUserImage($user['Image']);
+            $this->setRole($user['role_id']);
+
+            if (password_verify($password, $user['motDePasse'])) {
+                return $user;
+            } else {
+                throw new Exception("Email ou mot de passe invalide.");
+            }
+        } else {
+            throw new Exception("Aucun utilisateur trouvé.");
+        }
+    }
 }
