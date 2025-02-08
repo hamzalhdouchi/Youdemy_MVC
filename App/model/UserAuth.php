@@ -101,12 +101,12 @@ class UserAuth
         $this->username = htmlspecialchars($username);
     }
 
-    public function setUserImage($image)
+    public function setUserimage($image)
     {
         $this->image = $image;
     }
 
-    public function getUserImage()
+    public function getUserimage()
     {
         return $this->image;
     }
@@ -139,7 +139,7 @@ class UserAuth
             $this->setAction($user['action']);
             $this->setName($user['nom']);
             $this->setUsername($user['prenom']);
-            $this->setUserImage($user['image']);
+            $this->setUserimage($user['image']);
             $this->setRole($user['role_id']);
 
             if (password_verify($password, $user['motdepasse'])) {

@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModiferVidio'])) {
     $coursVideo->setVideo($centenu);
     $coursVideo->setcategorie_id($Categorei);
     $coursVideo->setTags_id($Tags);
-    $coursVideo->setImage($image);
+    $coursVideo->setimage($image);
     $coursVideo->Modifer($idC);
 }
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
     $coursDecoment->setDocument($centenu);
     $coursDecoment->setcategorie_id($Categorei);
     $coursDecoment->setTags_id($Tags);
-    $coursDecoment->setImage($image);
+    $coursDecoment->setimage($image);
     $coursDecoment->Modifier($idC);
 }
 
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
 
                                                                             <div>
                                                                                 <div class="file-upload-container">
-                                                                                    <label class="file-label" for="course-image">Course Image</label>
+                                                                                    <label class="file-label" for="course-image">Course image</label>
                                                                                     <input
                                                                                         type="file"
                                                                                         name="image"
@@ -489,7 +489,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
                                                                             </div>
                                                                             <div>
                                                                                 <div class="file-upload-container">
-                                                                                    <label class="file-label" for="course-image">Course Image</label>
+                                                                                    <label class="file-label" for="course-image">Course image</label>
                                                                                     <input
                                                                                         type="file"
                                                                                         name="image"

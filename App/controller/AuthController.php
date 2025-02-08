@@ -93,7 +93,7 @@ class AuthController
             $this->userModel->setRole($_POST['role']);
 
             try {
-                $this->userModel->setUser($_FILES['Image_Profile']);
+                $this->userModel->setUser($_FILES['image_Profile']);
                 header("Location: /inscription");
                 exit;
             } catch (Exception $e) {

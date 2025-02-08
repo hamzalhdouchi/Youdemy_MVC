@@ -5,7 +5,7 @@
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Register'])) {
 //     if ($_POST['password'] == $_POST['RePassword']) {
-//         $image = $_FILES['Image_Profile']; 
+//         $image = $_FILES['image_Profile']; 
 //         $user = new User('', $_POST['email'], $_POST['password'], '', '', $_POST['FirstName'], $_POST['lastName'], '', $_POST['role']);
 //         $user->setUser($image);
 //         echo 'RFRJCRCJJFRCFCRFCFR';
@@ -1441,10 +1441,10 @@
                         class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded">
                     </div>
                     <div class="w-full">
-                      <label class="text-contentColor dark:text-contentColor-dark mb-10px block">Image Profile</label>
+                      <label class="text-contentColor dark:text-contentColor-dark mb-10px block">image Profile</label>
                       <div class="relative">
                         <input
-                          name="Image_Profile"
+                          name="image_Profile"
                           type="file"
                           id="file-input"
                           class="hidden"
@@ -1452,7 +1452,7 @@
                         <label
                           for="file-input"
                           class="w-full h-52px leading-52px pl-5 bg-transparent text-sm focus:outline-none text-contentColor dark:text-contentColor-dark border border-borderColor dark:border-borderColor-dark placeholder:text-placeholder placeholder:opacity-80 font-medium rounded cursor-pointer flex justify-center items-center">
-                          Choose an Image
+                          Choose an image
                         </label>
                       </div>
                     </div>

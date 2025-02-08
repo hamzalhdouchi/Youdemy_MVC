@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['CreateVidio'])) {
   $About = htmlspecialchars($_POST['About']);
   $image = $_FILES['image'];
   $centenu = $_POST['centenu_video'];
-  $coursVideo->setid($idE); $coursVideo->setTitre($title); $coursVideo->setSlgun($slug); $coursVideo->setDescription($About);$coursVideo->setVideo($centenu); $coursVideo->setcategorie_id($Categorei); $coursVideo->setTags_id($Tags); $coursVideo->setImage($image);
+  $coursVideo->setid($idE); $coursVideo->setTitre($title); $coursVideo->setSlgun($slug); $coursVideo->setDescription($About);$coursVideo->setVideo($centenu); $coursVideo->setcategorie_id($Categorei); $coursVideo->setTags_id($Tags); $coursVideo->setimage($image);
   $coursVideo->ajouterCours();
 
 }
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['CreateDocument'])) {
   $About = htmlspecialchars($_POST['About']);
   $image = $_FILES['image'];
   $centenu = $_FILES['centenu_pdf'];
-  $coursDecoment->setid($idE); $coursDecoment->setTitre($title); $coursDecoment->setSlgun($slug); $coursDecoment->setDescription($About);$coursDecoment->setDocument($centenu); $coursDecoment->setcategorie_id($Categorei); $coursDecoment->setTags_id($Tags); $coursDecoment->setImage($image);
+  $coursDecoment->setid($idE); $coursDecoment->setTitre($title); $coursDecoment->setSlgun($slug); $coursDecoment->setDescription($About);$coursDecoment->setDocument($centenu); $coursDecoment->setcategorie_id($Categorei); $coursDecoment->setTags_id($Tags); $coursDecoment->setimage($image);
   $coursDecoment->ajouterCours();
 
 }
@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['CreateDocument'])) {
                                      
                                       <div>
                                       <div class="file-upload-container">
-                                          <label class="file-label" for="course-image">Course Image</label>
+                                          <label class="file-label" for="course-image">Course image</label>
                                           <input
                                               type="file"
                                               name="image"
@@ -509,7 +509,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['CreateDocument'])) {
                                       </div>
                                       <div>
                                       <div class="file-upload-container">
-                                          <label class="file-label" for="course-image">Course Image</label>
+                                          <label class="file-label" for="course-image">Course image</label>
                                           <input
                                               type="file"
                                               name="image"

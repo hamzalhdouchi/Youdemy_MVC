@@ -1,28 +1,22 @@
 <?php
-require_once __DIR__ . "/../../controllers/categorei.php";
-require_once __DIR__ . "/../../controllers/CourseController.php";
+// require_once __DIR__ . "/../../controllers/categorei.php";
+// require_once __DIR__ . "/../../controllers/CourseController.php";
 
 
-$categoreis = new categorie();
-$categorei   = $categoreis->getCategories();
+// $categoreis = new categorie();
+// $categorei   = $categoreis->getCategories();
 
-$tags = new Tags();
+// $tags = new Tags();
 
-$tag =  $tags->getTags();
+// $tag =  $tags->getTags();
 
-$total = Cours::StatiqueCours();
-$itemsPerPage = 9;
+// $total = Cours::StatiqueCours();
 
 
-$currentPage = isset($_GET['page']) ? filter_var($_GET['page'], FILTER_VALIDATE_INT) : 1;
-if ($currentPage < 1) $currentPage = 1;
+//  = Cours::afficherTousLesCours($itemsPerPage, $offset);
 
-$offset = ($currentPage - 1) * $itemsPerPage;
-
-$cours = Cours::afficherTousLesCours($itemsPerPage, $offset);
-
-$totalCours = Cours::countCours();
-$totalPages = ($totalCours > 0) ? ceil($totalCours / $itemsPerPage) : 1;
+// $totalCours = Cours::countCours();
+// $totalPages = ($totalCours > 0) ? ceil($totalCours / $itemsPerPage) : 1;
 
 
 
@@ -319,91 +313,56 @@ $totalPages = ($totalCours > 0) ? ceil($totalCours / $itemsPerPage) : 1;
           </div>
           <!-- course cards -->
 
-          <div
-            id="Tage_cards"
-            class="container p-0 filter-contents flex flex-wrap sm:-mx-15px"
-            data-aos="fade-up">
-            <!-- card 1 -->
-            <?php
-            foreach ($cours as $course) {
-            ?>
-              <div
-                class="w-full sm:w-1/2 lg:w-1/3 group grid-item filter1 filter3">
-                <div class="tab-content-wrapper sm:px-15px mb-30px">
-                  <div
-                    class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
-                    <!-- card image -->
-                    <div class="relative mb-4">
-                      <a
-                        href="./course-details.php?id=<?= $course['id_cours'] ?>"
-                        class="w-full overflow-hidden rounded">
-                        <img
-                          src="<?= $course['Image'] ?>"
-                          alt=""
-                          class="w-full transition-all duration-300 group-hover:scale-110">
-                      </a>
-                      <div class="absolute left-0 top-1 flex flex-wrap gap-2 w-full items-center px-2">
-                        <?php 
-                          $tags = explode(', ', $course['nom_Tag']); 
-                          
-                          foreach ($tags as $tag) {
-                            
-                            ?>
-                            <span class="text-xs text-white px-4 py-1 bg-secondaryColor rounded font-semibold"><?= htmlspecialchars($tag) ?></span>
-                            <?php
-                          }
-                        ?>
-                      </div>
-
-                    </div>
-                    <!-- card content -->
-                    <div>
-                      <div class="grid grid-cols-2 mb-15px">
-                        <div class="flex items-center">
-
-                          <div>
-
-                          </div>
-                        </div>
-                        <div class="flex items-center">
-
-                          <div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <a
-                        href="./course-details.php?id=<?= $course['id_cours'] ?>"
-                        class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                        <?= $course['titre'] ?>
-                      </a>
-                      <!-- price -->
-                      <div
-                        class="text-lg font-semibold text-primaryColor font-inter mb-4">
-                        <?= $course['slogan'] ?>
-
-                      </div>
-                      <!-- author and rating-->
-                      <div
-                        class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
-                        <div>
-                          <a
-                            href="instructor-details.html"
-                            class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor"><img
-                              class="w-[30px] h-[30px] rounded-full mr-15px"
-                              src="../assets/images/grid/grid_small_1.jpg"
-                              alt="">
-                            <span class="flex"><?= $course['nom'] ?> <?= $course['prenom'] ?> </span>
-                          </a>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <?php } ?>
+          <div id="Tage_cards" class="container p-0 filter-contents flex flex-wrap sm:-mx-15px" data-aos="fade-up">
+  <?php foreach ($courses as $course):
+     ?>
+    <div class="w-full sm:w-1/2 lg:w-1/3 group grid-item filter1 filter3">
+      <div class="tab-content-wrapper sm:px-15px mb-30px">
+        <div class="p-15px bg-whiteColor shadow-brand dark:bg-darkdeep3-dark dark:shadow-brand-dark">
+          <!-- card image -->
+          <div class="relative mb-4">
+            <!--  -->
+              <img src="<?= $course['Cours']->getImage() ?>" alt="" class="w-full transition-all duration-300 group-hover:scale-110">
+            </a>
+            <div class="absolute left-0 top-1 flex flex-wrap gap-2 w-full items-center px-2">
+             
+                <span class="text-xs text-white px-4 py-1 bg-[<?= $course['Tags']->getColor()?>] rounded font-semibold"><?=  $course['Tags']->getName()?></span>
+              
+            </div>
           </div>
+          <!-- card content -->
+          <div>
+            <div class="grid grid-cols-2 mb-15px">
+              <div class="flex items-center">
+                <!-- Add any other content if needed -->
+              </div>
+              <div class="flex items-center">
+                <!-- Add any other content if needed -->
+              </div>
+            </div>
+            <a href="./course-details.php?id=<?= $course['Cours']->getId() ?>" class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+              <?= htmlspecialchars($course['Cours']->getTitre()) ?>
+            </a>
+            <!-- price -->
+            <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
+              <?= htmlspecialchars($course['Cours']->getSlgun()) ?>
+            </div>
+            <!-- author and rating -->
+            <div class="grid grid-cols-1 md:grid-cols-2 pt-15px border-t border-borderColor">
+              <div>
+                <a href="instructor-details.html" class="text-base font-bold font-hind flex items-center hover:text-primaryColor dark:text-blackColor-dark dark:hover:text-primaryColor">
+                  <img class="w-[30px] h-[30px] rounded-full mr-15px" src="../assets/images/grid/grid_small_1.jpg" alt="">
+                  <span class="flex"><?= htmlspecialchars($course['User']->getName()) ?> <?= htmlspecialchars($course['User']->getUsername()) ?></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+
           <!-- Pagination -->
           <div class="max-w-7xl mx-auto mt-8 px-4 pb-8">
             <div class="flex justify-center gap-4 items-center space-x-2">

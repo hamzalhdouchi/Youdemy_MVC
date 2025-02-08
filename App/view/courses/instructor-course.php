@@ -302,7 +302,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                             <!-- card image -->
                             <div class="relative mb-4 h-36 w-full">
                               <a href="./course-details.php?id=<?= $cour->getId() ?>" class="w-full overflow-hidden rounded-lg">
-                                <img src="<?= $cour->getImage() ?>" alt="<?= $cour->getTitre() ?>" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
+                                <img src="<?= $cour->getimage() ?>" alt="<?= $cour->getTitre() ?>" class="w-full h-full object-cover transition-all duration-300 group-hover:scale-110">
                               </a>
                               <div class="absolute left-0 top-2 flex justify-between w-full items-center px-2">
                                 <div class="flex justify-center gap-4 items-center flex-wrap mt-2">
@@ -373,7 +373,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                             <!-- card image -->
                             <div class="relative mb-4">
                               <a href="./course-details.php?id=<?= $cour->getId() ?>" class="w-full overflow-hidden rounded">
-                                <img src="<?= $cour->getImage() ?>" alt="<?= $cour->getTitre() ?>" class="w-full h-40 object-cover transition-all duration-300 group-hover:scale-110">
+                                <img src="<?= $cour->getimage() ?>" alt="<?= $cour->getTitre() ?>" class="w-full h-40 object-cover transition-all duration-300 group-hover:scale-110">
                               </a>
                               <div class="absolute left-0 top-1 flex justify-between w-full items-center px-2">
                                 <div class="mt-4 flex justify-center gap-4 items-center flex-wrap">

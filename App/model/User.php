@@ -64,12 +64,12 @@ class User extends UserAuth
             }
 
             if (move_uploaded_file($image["tmp_name"], $targetFile)) {
-                $uploadedImage = basename($image["name"]);
+                $uploadedimage = basename($image["name"]);
             } else {
                 throw new Exception("Erreur lors du téléchargement du fichier.");
             }
 
-            $this->setUserImage($uploadedImage);
+            $this->setUserimage($uploadedimage);
             $this->setPassword(password_hash($this->password, PASSWORD_DEFAULT));
 
             $action = ($this->role == 2) ? 1 : null;
@@ -83,7 +83,7 @@ class User extends UserAuth
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
             $stmt->bindParam(':role_id', $this->role, PDO::PARAM_INT);
-            $stmt->bindParam(':image', $uploadedImage, PDO::PARAM_STR);
+            $stmt->bindParam(':image', $uploadedimage, PDO::PARAM_STR);
             $stmt->bindParam(':action', $action, PDO::PARAM_INT);
 
             if (!$stmt->execute()) {

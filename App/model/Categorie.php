@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Config\Database;
+use App\Model\CoursDocument;
 use PDO;
 use PDOException, Exception;
 
@@ -55,21 +56,23 @@ class Categorie
     {
         $sql = "
             SELECT 
-    categorie.id_categorei, 
-    categorie.nom_categorie, 
-    categorie.slogan, 
-    COUNT(cours.id_cours) AS nombre_cours
-    FROM categorie
-    LEFT JOIN cours ON categorie.id_categorei = cours.categorie_id
-    GROUP BY categorie.id_categorei;
+        categorie.id_categorei, 
+        categorie.nom_categorie, 
+        categorie.slogan, 
+        COUNT(cours.id_cours) AS nombre_cours
+        FROM categorie
+        LEFT JOIN cours ON categorie.id_categorei = cours.categorie_id
+        GROUP BY categorie.id_categorei;
         ";
 
         $stmt = $this->connect->query($sql);
         $categoriesListe = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            
             $categorie = new Categorie($row['id_categorei'], $row['nom_categorie'], $row['slogan']);
-            $categoriesListe[] = $categorie;
+            $cours = new CoursDocument($row['nombre_cours']);
+            $categoriesListe[] = [$categorie, $cours];
         }
         return $categoriesListe;
     }

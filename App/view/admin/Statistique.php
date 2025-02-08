@@ -444,7 +444,7 @@
                             class="px-5px py-10px md:px-5 font-normal text-wrap">
                             <span
                               class="text-blackColor dark:text-blackColor-dark font-bold">
-                              <?= $row->getUserImage() ?></span>
+                              <?= $row->getUserimage() ?></span>
 
                           </th>
                         <?php

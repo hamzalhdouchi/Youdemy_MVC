@@ -4,7 +4,7 @@ namespace App\Model;
 use App\Config\Database;
 use PDOException,PDO;
 
-abstract class CoursModel
+abstract class Cours
 {
     protected $id;
     protected $titre;
@@ -57,7 +57,7 @@ abstract class CoursModel
         return $this->Type;
     }
 
-    public function getImage()
+    public function getimage()
     {
         return $this->image;
     }
@@ -108,7 +108,7 @@ abstract class CoursModel
         $this->Type = $Type;
     }
 
-    public function setImage($image)
+    public function setimage($image)
     {
         $this->image = $image;
     }
@@ -145,24 +145,63 @@ abstract class CoursModel
     {
         try {
             $db = Database::getInstance()->getConnection();
-            $sql = "
-                SELECT * FROM cours C
-                JOIN utilisateur U ON C.Enseignant_id = U.id
-                LEFT JOIN courstag AS T ON T.idCours = C.id_cours
-                LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
-                WHERE C.action = 1
-                LIMIT :limit OFFSET :offset
-            ";
+           $sql = "SELECT 
+            C.*, 
+            U.nom AS enseignant_nom, 
+            U.prenom AS enseignant_prenom,
+            STRING_AGG(TG.nom_Tag, ', ') AS tags,
+            STRING_AGG(TG.color, ', ') AS couleurs
+        FROM cours AS C
+        JOIN utilisateur AS U ON C.Enseignant_id = U.id
+        LEFT JOIN courstag AS T ON T.idCours = C.id_cours
+        LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
+        WHERE C.action = TRUE
+        GROUP BY C.id_cours, U.nom, U.prenom
+        LIMIT :limit OFFSET :offset";
+    
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':limit', $itemsPerPage, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            $courses = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $courses[] = [
+                    'Cours' => new CoursDocument(
+                        $row['id_cours'],
+                        $row['titre'],
+                        $row['description'],
+                        $row['slgan'],
+                        null,
+                        null,
+                        $row['type'],
+                        $row['image'],
+                        $row['contenu']
+                    ),
+                    'User' => new User(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        $row['enseignant_nom'],
+                        $row['enseignant_prenom']
+                    ),
+                    'Tags' => new Tags(
+                        null,
+                        $row['tags'],
+                        $row['couleurs']
+                    )
+                ];
+            }
+    
+            return $courses;
         } catch (PDOException $e) {
-            error_log("Erreur dans afficherTousLesCours : " . $e->getMessage());
+            echo("Erreur dans afficherTousLesCours : " . $e->getMessage());
             return ["error" => "Impossible de récupérer les cours pour le moment."];
         }
     }
+    
 
     public static function countCours()
     {

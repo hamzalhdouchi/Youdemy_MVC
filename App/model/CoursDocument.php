@@ -1,9 +1,9 @@
 <?php
 namespace App\Model;
-use App\Model\CoursModel;
+use App\Model\Cours;
 use PDO,PDOException,Exception;
 
-class CoursDocumentModel extends CoursModel
+class CoursDocument extends Cours
 {
     private $contenu_document;
 
@@ -13,7 +13,7 @@ class CoursDocumentModel extends CoursModel
         $this->contenu_document = $contenu_document;
     }
 
-    // Getters et Setters
+   
     public function getDocument()
     {
         return $this->contenu_document;
@@ -24,7 +24,7 @@ class CoursDocumentModel extends CoursModel
         $this->contenu_document = $contenu_document;
     }
 
-    // Ajouter un cours de type document
+  
     public function ajouterCours()
     {
         try {
@@ -118,22 +118,23 @@ class CoursDocumentModel extends CoursModel
         }
     }
 
-    // Afficher les cours de type document
+    
     public function afficherCours()
     {
         try {
             $sql = "SELECT 
-                        C.*, 
-                        U.nom AS enseignant_nom, 
-                        U.prenom AS enseignant_prenom,
-                        GROUP_CONCAT(TG.nom_Tag SEPARATOR ', ') AS tags,
-                        GROUP_CONCAT(TG.color SEPARATOR ', ') AS couleurs
-                    FROM cours AS C
-                    JOIN utilisateur AS U ON U.id = C.Enseignant_id
-                    LEFT JOIN courstag AS T ON T.idCours = C.id_cours
-                    LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
-                    WHERE U.id = :id AND C.type = 'document'
-                    GROUP BY C.id_cours";
+            C.*, 
+            U.nom AS enseignant_nom, 
+            U.prenom AS enseignant_prenom,
+            STRING_AGG(TG.nom_Tag, ', ') AS tags,
+            STRING_AGG(TG.color, ', ') AS couleurs
+        FROM cours AS C
+        JOIN utilisateur AS U ON U.id = C.Enseignant_id
+        LEFT JOIN courstag AS T ON T.idCours = C.id_cours
+        LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
+        WHERE U.id = :id AND C.type = 'document'
+        GROUP BY C.id_cours, U.nom, U.prenom";
+        
 
             $stmt = $this->connect->prepare($sql);
             $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
@@ -142,7 +143,7 @@ class CoursDocumentModel extends CoursModel
             $courses = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $courses[] = [
-                    'Cours' => new CoursDocumentModel(
+                    'Cours' => new CoursDocument(
                         $row['id_cours'],
                         $row['titre'],
                         $row['description'],
@@ -150,7 +151,7 @@ class CoursDocumentModel extends CoursModel
                         null,
                         null,
                         $row['Type'],
-                        $row['Image'],
+                        $row['image'],
                         $row['contenu']
                     ),
                     'User' => new User(
@@ -296,7 +297,7 @@ class CoursDocumentModel extends CoursModel
 
             if ($resulte) {
                 return [
-                    'Cours' => new CoursDocumentModel(
+                    'Cours' => new CoursDocument(
                         $resulte['id_cours'],
                         $resulte['titre'],
                         $resulte['description'],
@@ -304,7 +305,7 @@ class CoursDocumentModel extends CoursModel
                         null,
                         null,
                         $resulte['Type'],
-                        $resulte['Image'],
+                        $resulte['image'],
                         $resulte['contenu']
                     ),
                     'User' => new User(
