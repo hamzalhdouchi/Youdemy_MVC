@@ -45,16 +45,16 @@ class EtudiantController
                 $row['id_cours'],
                 $row['titre'],
                 $row['description'],
-                $row['Slgan'],
+                $row['slgan'],
                 null,
                 null,
                 null,
-                $row['Image'],
+                $row['image'],
                 $row['contenu']
             );
-            $User = new UserAuth(null, null, null, null, null, $row['enseignant_nom'], $row['enseignant_prenom'], $row['Image_User']);
+            $User = new UserAuth(null, null, null, null, null, $row['enseignant_nom'], $row['enseignant_prenom'], $row['image_user']);
             $Tags = new Tags(null, $row['tags']);
-            $Inscription = new Inscription(null, $id_Etudiant, $row['id_cours'], $row['dateInscription']);
+            $Inscription = new Inscription(null, $id_Etudiant, $row['id_cours'], $row['dateinscription']);
 
             $myCourses[] = [
                 'Cours' => $Cours,

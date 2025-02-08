@@ -77,7 +77,7 @@ class Etudiant
     {
         try {
             $sql = "
-                SELECT 
+  SELECT 
     C.id_cours, 
     C.titre, 
     C.description, 
@@ -100,7 +100,7 @@ LEFT JOIN
 LEFT JOIN 
     inscription I ON I.idCours = C.id_cours
 WHERE 
-    I.idEtudiant = :id
+    C.enseignant_id = :id -- Replace with the actual value or parameter
 GROUP BY 
     C.id_cours, 
     C.titre, 
@@ -111,7 +111,8 @@ GROUP BY
     U.nom, 
     U.prenom, 
     U.Image, 
-    I.dateInscription
+    I.dateInscription;
+
             ";
 
             $stmt = $this->db->prepare($sql);

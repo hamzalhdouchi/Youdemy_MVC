@@ -23,7 +23,7 @@ class Teacher
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['nombreDeCours'];
+        return $result['nombredecours'];
     }
 
     public function nombreEtudiantsInscrits($idEnseignant)
@@ -38,6 +38,6 @@ class Teacher
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['nombreEtudiants'];
+        return $result['nombreetudiants'];
     }
 }

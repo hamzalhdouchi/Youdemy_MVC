@@ -43,7 +43,7 @@ class AuthController
                     exit;
                 }
             } elseif ($user["role_id"] === 3) {
-                header("Location: /Admin");
+                header("Location: /Etudiant");
                 exit;
             } elseif ($user["role_id"] === 1) {
                 header("Location: ../view/courses/HOME.php");

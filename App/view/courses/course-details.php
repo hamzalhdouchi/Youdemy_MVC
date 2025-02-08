@@ -1,31 +1,31 @@
 <?php
-session_start();
-require_once __DIR__ . ("/../../controllers/CoursDocument.php");
-require_once __DIR__ . ("/../../controllers/CoursVideo.php");
-require_once __DIR__ . ("/../../controllers/Etudiant.php");
-require_once __DIR__ . ("/../../controllers/Inscription.php");
+// session_start();
+// require_once __DIR__ . ("/../../controllers/CoursDocument.php");
+// require_once __DIR__ . ("/../../controllers/CoursVideo.php");
+// require_once __DIR__ . ("/../../controllers/Etudiant.php");
+// require_once __DIR__ . ("/../../controllers/Inscription.php");
 
-$id_Cours = $_GET["id"];
-$id_user = $_SESSION['user_id'];
-$coursDocument = new CoursDocument();
-$Etudant = new Etudiant();
-$inscription = new Inscription();
+// $id_Cours = $_GET["id"];
+// $id_user = $_SESSION['user_id'];
+// $coursDocument = new CoursDocument();
+// $Etudant = new Etudiant();
+// $inscription = new Inscription();
 
-$cours = $coursDocument->AffecherCoursByCategorei($id_Cours);
-if ($cours == null) {
-  header("Location: ../courses/course-details_Video.php?id=$id_Cours");
-      exit;
-}
-$inscription->setIdEtudiant($id_user);
-$inscription->setIdCours($id_Cours);
-$result = $inscription->afficherInscription();
-if (isset($_POST["inscription"])) {
-  $inscription->setIdEtudiant($id_user);
-$inscription->setIdCours($id_Cours);
-  $coursDocument->setcategorie_id(intval($_POST["Cours"]));
-  $id_user = $_POST["id_user"];
-  $inscription->Inscription();
-}
+// $cours = $coursDocument->AffecherCoursByCategorei($id_Cours);
+// if ($cours == null) {
+//   header("Location: ../courses/course-details_Video.php?id=$id_Cours");
+//       exit;
+// }
+// $inscription->setIdEtudiant($id_user);
+// $inscription->setIdCours($id_Cours);
+// $result = $inscription->afficherInscription();
+// if (isset($_POST["inscription"])) {
+//   $inscription->setIdEtudiant($id_user);
+// $inscription->setIdCours($id_Cours);
+//   $coursDocument->setcategorie_id(intval($_POST["Cours"]));
+//   $id_user = $_POST["id_user"];
+//   $inscription->Inscription();
+// }
 
 ?>
 

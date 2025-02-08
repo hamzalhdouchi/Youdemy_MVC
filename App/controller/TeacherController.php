@@ -2,7 +2,11 @@
 namespace App\Controller;
 use App\Model\Teacher;
 use Exception;
-
+if (isset($_SESSION['user_id'])) {
+    echo "Data exists in session.";
+} else {
+    echo "No data in session.";
+}
 class TeacherController
 {
     private $teacherModel;
@@ -15,6 +19,7 @@ class TeacherController
     public function showTeacherDashboard()
     {
         try {
+            
             $idEnseignant = $_SESSION['user_id'];
             $nombreDeCours = $this->teacherModel->nombreDeCours($idEnseignant);
             $nombreEtudiants = $this->teacherModel->nombreEtudiantsInscrits($idEnseignant);
