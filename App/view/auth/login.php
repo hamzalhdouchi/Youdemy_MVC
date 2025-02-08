@@ -1301,7 +1301,7 @@
                   </p>
                 </div>
 
-                <form class="pt-25px" data-aos="fade-up" method="POST">
+                <form class="pt-25px" action="/login" data-aos="fade-up" method="POST">
                   <div class="mb-25px">
                     <label
                       class="text-contentColor dark:text-contentColor-dark mb-10px block">Email</label>

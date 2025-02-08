@@ -90,7 +90,7 @@ class AuthController
 
             try {
                 $this->userModel->setUser($_FILES['Image_Profile']);
-                header("Location: /Login");
+                header("Location: /inscription");
                 exit;
             } catch (Exception $e) {
                 echo "<script>Swal.fire({
