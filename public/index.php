@@ -2,6 +2,7 @@
 
 use App\Controller\CategorieController;
 use App\Controller\tagController;
+use App\Controller\AuthController;
 use App\Core\Router;
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -21,6 +22,9 @@ $router->add('POST', '/DeleteTag/{id}', tagController::class, 'deleteTag');
 $router->add('POST', '/AddTag', tagController::class, 'addTag');
 $router->add('POST', '/EditeTag/{id}', tagController::class, 'getTagById');
 $router->add('POST', '/updateTag', tagController::class, 'updateTag');
+$router->add('GET', '/Login', AuthController::class, 'indexLogin');
+$router->add('POST', '/SinUp', AuthController::class, 'createUser');
+
 
 
 

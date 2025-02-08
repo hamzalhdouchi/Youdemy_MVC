@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Model\UserAuth;
 use App\Model\User;
 use App\Model\Admin;
@@ -16,8 +18,13 @@ class AuthController
         $this->userAuthModel = new UserAuth();
         $this->userModel = new User();
         $this->adminModel = new Admin();
-
     }
+
+    public function indexLogin()
+    {
+        require_once __DIR__ . "/../view/auth/login.php";
+    }
+
 
     public function login($email, $password)
     {
@@ -71,25 +78,28 @@ class AuthController
         exit;
     }
 
-    public function createUser($name, $username, $email, $password, $role, $image)
+    public function createUser()
     {
-        $this->userModel->setName($name);
-        $this->userModel->setUsername($username);
-        $this->userModel->setEmail($email);
-        $this->userModel->setPassword($password);
-        $this->userModel->setRole($role);
+        if ($_POST['password'] == $_POST['RePassword']) {
 
-        try {
-            $this->userModel->setUser($image);
-            header("Location: ../views/success.php");
-            exit;
-        } catch (Exception $e) {
-            echo "<script>Swal.fire({
+            $this->userModel->setName($_POST['FirstName']);
+            $this->userModel->setUsername($_POST['lastName']);
+            $this->userModel->setEmail($_POST['email']);
+            $this->userModel->setPassword($_POST['password']);
+            $this->userModel->setRole($_POST['role']);
+
+            try {
+                $this->userModel->setUser($_FILES['Image_Profile']);
+                header("Location: /Login");
+                exit;
+            } catch (Exception $e) {
+                echo "<script>Swal.fire({
                 title: 'Erreur!',
                 text: '" . addslashes($e->getMessage()) . "',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });</script>";
+            }
         }
     }
 

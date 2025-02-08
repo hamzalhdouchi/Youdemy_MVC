@@ -1,27 +1,23 @@
 <?php
 
-require __DIR__ . "/../../controllers/AuthUserController.php";
+// require __DIR__ . "/../../controllers/AuthUserController.php";
+           
 
-$REGISTE = new User();               
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Register'])) {
+//     if ($_POST['password'] == $_POST['RePassword']) {
+//         $image = $_FILES['Image_Profile']; 
+//         $user = new User('', $_POST['email'], $_POST['password'], '', '', $_POST['FirstName'], $_POST['lastName'], '', $_POST['role']);
+//         $user->setUser($image);
+//         echo 'RFRJCRCJJFRCFCRFCFR';
+//     } else {
+//         echo 'Les mots de passe ne correspondent pas.';
+//     }
+// }
 
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['Login'])) {
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Register'])) {
-    if ($_POST['password'] == $_POST['RePassword']) {
-        $image = $_FILES['Image_Profile']; 
-        $user = new User('', $_POST['email'], $_POST['password'], '', '', $_POST['FirstName'], $_POST['lastName'], '', $_POST['role']);
-        $user->setUser($image);
-        echo 'RFRJCRCJJFRCFCRFCFR';
-    } else {
-        echo 'Les mots de passe ne correspondent pas.';
-    }
-}
-
-
-
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['Login'])) {
-
-  $REGISTE->loginUser($_POST['Email'], $_POST['Password']);
-}
+//   $REGISTE->loginUser($_POST['Email'], $_POST['Password']);
+// }
 
 ?>
 
@@ -1390,7 +1386,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['Login'])) {
                   </p>
                 </div>
 
-                <form class="pt-25px" id="registrationForm" method="POST" enctype="multipart/form-data">
+                <form action="/SinUp" class="pt-25px" id="registrationForm" method="POST" enctype="multipart/form-data">
                   <div
                     class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-30px gap-y-25px mb-25px">
                     <div>
