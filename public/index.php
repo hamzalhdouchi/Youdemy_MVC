@@ -5,6 +5,7 @@ use App\Controller\tagController;
 use App\Controller\AuthController;
 use App\Controller\CoursController;
 use App\Controller\EtudiantController;
+use App\Controller\TeacherController;
 use App\Core\Router;
 
 require_once __DIR__ . "/../vendor/autoload.php";
@@ -39,6 +40,8 @@ $router->add('GET', '/Cours', CoursController::class, 'afficherTousLesCours');
 $router->add('POST', '/AjouterCours', CoursController::class, 'ajouterCours');
 
 $router->add('GET', '/Etudiant', EtudiantController::class, 'myCours');
+
+$router->add('GET', '/Teacher', TeacherController::class, 'showTeacherDashboard');
 
 
 
