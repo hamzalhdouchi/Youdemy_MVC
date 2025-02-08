@@ -1,7 +1,11 @@
 <?php
+namespace App\Model;
 use App\Config\Database;
-use PDO;
+use PDO,Exception,PDOException;
 use App\Model\UserAuth;
+
+
+
 class Admin extends UserAuth
 {
     protected $connect;

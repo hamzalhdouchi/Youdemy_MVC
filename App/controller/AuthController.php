@@ -2,17 +2,20 @@
 namespace App\Controller;
 use App\Model\UserAuth;
 use App\Model\User;
+use App\Model\Admin;
 use Exception;
 
 class AuthController
 {
     private $userAuthModel;
     private $userModel;
+    private $adminModel;
 
     public function __construct()
     {
         $this->userAuthModel = new UserAuth();
         $this->userModel = new User();
+        $this->adminModel = new Admin();
 
     }
 
