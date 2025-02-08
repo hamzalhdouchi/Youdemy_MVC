@@ -40,7 +40,7 @@ class User extends UserAuth
         $enseignants = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $enseignant = new User($row['id'], $row['email'], $row['motDePasse'], $row['statut'], $row['Action'], $row['nom'], $row['prenom'], '', '');
+            $enseignant = new User($row['id'], $row['email'], $row['motdepasse'], $row['statut'], $row['action'], $row['nom'], $row['prenom'], '', '');
             $enseignants[] = $enseignant;
         }
 

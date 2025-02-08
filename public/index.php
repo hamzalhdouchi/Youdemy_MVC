@@ -24,6 +24,11 @@ $router->add('POST', '/EditeTag/{id}', tagController::class, 'getTagById');
 $router->add('POST', '/updateTag', tagController::class, 'updateTag');
 $router->add('GET', '/inscription', AuthController::class, 'indexLogin');
 $router->add('POST', '/SinUp', AuthController::class, 'createUser');
+$router->add('POST', '/login', AuthController::class, 'login');
+$router->add('GET', '/Admin', AuthController::class, 'Index');
+$router->add('POST', '/aprove', AuthController::class, 'aproveUser');
+
+
 
 
 

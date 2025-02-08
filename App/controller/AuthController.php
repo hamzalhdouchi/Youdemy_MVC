@@ -24,28 +24,31 @@ class AuthController
     {
         require_once __DIR__ . "/../view/auth/login.php";
     }
-
-
-    public function login($email, $password)
+    
+    public function login()
     {
         try {
-            $user = $this->userAuthModel->loginUser($email, $password);
+            $user = $this->userAuthModel->loginUser($_POST['Email'], $_POST['Password']);
 
             $_SESSION["user_name"] = $user["nom"];
             $_SESSION["prenom"] = $user["prenom"];
             $_SESSION["user_id"] = $user["id"];
-            $_SESSION["user_profile"] = $user["Image"];
+            $_SESSION["user_profile"] = $user["image"];
 
-            if ($user["role_id"] == 2) {
-                if ($user['Action'] == 1) {
+            // var_dump($user["role_id"]);
+            if ($user["role_id"] === 2) { 
+                if ($user['action'] === 1) {
                     echo "<script>alert('Le compte n\'est pas approuvé');</script>";
-                } elseif ($user['Action'] == 0) {
-                    header("Location: ../courses/instructor-course.php");
+                } elseif ($user['action'] === 0) {
+                    header("Location: ../view/courses/instructor-course.php");
+                    exit;
                 }
-            } elseif ($user["role_id"] == 3) {
-                header("Location: ../admin/Users.php");
-            } elseif ($user["role_id"] == 1) {
-                header("Location: ../courses/HOME.php");
+            } elseif ($user["role_id"] === 3) {
+                header("Location: /Admin");
+                exit;
+            } elseif ($user["role_id"] === 1) {
+                header("Location: ../view/courses/HOME.php");
+                exit;
             }
             exit;
         } catch (Exception $e) {
@@ -60,21 +63,23 @@ class AuthController
         }
     }
 
+    public function getAllUser()
+    {
+        $ $this->userModel->readUser();
+        
+    }
+
     public function Index()
     {
-        return $this->userModel->readUser();
+        $result = $this->userModel->GetEnseignant();
+        require_once __DIR__. "/../view/admin/ActionAdmin.PHP";
     }
 
-    public function getEnseignants()
+    public function aproveUser()
     {
-        return $this->userModel->GetEnseignant();
-    }
-
-    public function aproveUser($id)
-    {
-        $this->userModel->setId($id);
+        $this->userModel->setId($_POST['id']);
         $this->userModel->Aprove();
-        header("Location: ../admin/ActionAdmin.PHP");
+        header("Location: /Admin");
         exit;
     }
 

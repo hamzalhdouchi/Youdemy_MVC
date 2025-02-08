@@ -1,32 +1,32 @@
 <?php
 
-require_once __DIR__ . "/../../controllers/AuthUserController.php";
+// require_once __DIR__ . "/../../controllers/AuthUserController.php";
 
-$Name_user = $_SESSION["user_name"];
-$image_profil = $_SESSION["user_profile"];
-
-
-$user = new User();
-
-$result = $user->readUser();
+// $Name_user = $_SESSION["user_name"];
+// $image_profil = $_SESSION["user_profile"];
 
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['statusbutton'])) {
-  $user->setStatus($_POST['status']);
-  $user->setId(intval($_POST['id']));
-  $user->status();
-}
+// $user = new User();
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['suprbutton'])) {
-  $user->setId(intval($_POST['id']));
-  $user->suppriméUser();
-}
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
+// $result = $user->readUser();
 
-  session_destroy();
-  header("Location: ../auth/login.php");
-  exit;
-}
+
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['statusbutton'])) {
+//   $user->setStatus($_POST['status']);
+//   $user->setId(intval($_POST['id']));
+//   $user->status();
+// }
+
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['suprbutton'])) {
+//   $user->setId(intval($_POST['id']));
+//   $user->suppriméUser();
+// }
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
+
+//   session_destroy();
+//   header("Location: ../auth/login.php");
+//   exit;
+// }
 ?>
 
 
@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
             </div>
             <div class="text-whiteColor font-bold text-center sm:text-start">
               <h5 class="text-xl leading-1.2 mb-5px">Hello</h5>
-              <h2 class="text-2xl leading-1.24"><?= $Name_user ?> <?= $_SESSION['prenom'] ?></h2>
+              <h2 class="text-2xl leading-1.24"><?= $_SESSION["user_name"] ?> <?= $_SESSION['prenom'] ?></h2>
 
             </div>
           </div>
@@ -163,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
               <!-- greeting -->
               <h5
                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                <?= $Name_user ?> <?= $_SESSION['prenom'] ?>
+                <?= $_SESSION["user_name"] ?> <?= $_SESSION['prenom'] ?>
               </h5>
               <ul>
                 <li

@@ -130,19 +130,19 @@ class UserAuth
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        var_dump($user);
         if ($user) {
             $this->setId($user['id']);
             $this->setEmail($user['email']);
-            $this->setPassword($user['motDePasse']);
+            $this->setPassword($user['motdepasse']);
             $this->setStatus($user['statut']);
-            $this->setAction($user['Action']);
+            $this->setAction($user['action']);
             $this->setName($user['nom']);
             $this->setUsername($user['prenom']);
-            $this->setUserImage($user['Image']);
+            $this->setUserImage($user['image']);
             $this->setRole($user['role_id']);
 
-            if (password_verify($password, $user['motDePasse'])) {
+            if (password_verify($password, $user['motdepasse'])) {
                 return $user;
             } else {
                 throw new Exception("Email ou mot de passe invalide.");

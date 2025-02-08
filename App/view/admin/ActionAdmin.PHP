@@ -1,25 +1,3 @@
-<?php
-
-require_once __DIR__ . "/../../controllers/AuthUserController.php";
-$userName = $_SESSION['user_name'];
-
-$Enseignant = new User();
-$result =  $Enseignant->GetEnseignant();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitAprove'])) {
-
-  $Enseignant->setId($_POST['id']);
-  $Enseignant->Aprove();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
-
-  session_destroy();
-  header("Location: ../auth/login.php");
-  exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
             </div>
             <div class="text-whiteColor font-bold text-center sm:text-start">
               <h5 class="text-xl leading-1.2 mb-5px">Hello</h5>
-              <h2 class="text-2xl leading-1.24"><?= $userName ?> <?= $_SESSION['prenom'] ?></h2>
+              <h2 class="text-2xl leading-1.24"><?= $_SESSION['user_name'] ?> <?= $_SESSION['prenom'] ?></h2>
 
             </div>
           </div>
@@ -150,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
               <!-- greeting -->
               <h5
                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                <?= $userName ?> <?= $_SESSION['prenom'] ?>
+                <?= $_SESSION['user_name'] ?> <?= $_SESSION['prenom'] ?>
               </h5>
               <ul>
                 <li
@@ -339,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                             <?php
                             if ($row->getAction() == 1) {
                             ?>
-                              <form action="" method="POST">
+                              <form action="/aprove" method="POST">
                                 <input type="hidden" name="id" value="<?= $row->getId() ?>">
                                 <button
                                   name="submitAprove"
