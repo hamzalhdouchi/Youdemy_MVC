@@ -113,12 +113,12 @@ abstract class CoursModel
         $this->image = $image;
     }
 
-    // Méthodes abstraites
+    
     abstract public function ajouterCours();
 
     abstract public function afficherCours();
 
-    // Méthodes concrètes
+    
     public function deletCours()
     {
         $sql = "DELETE FROM cours WHERE id_cours = :id";
