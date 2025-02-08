@@ -35,7 +35,7 @@ class CategorieController
         // }
 
         $result = $this->categorie->getCategories();
-        require_once __DIR__ . "/../view/categorie.php";
+        require_once __DIR__ . "/../view/admin/categorie.php";
     }
 
     public function ajouterCategorie()

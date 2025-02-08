@@ -1,8 +1,10 @@
-<?php 
+<?php
 namespace App\Model;
-
 use App\Config\Database;
-class inscription
+use PDO,PDOException,Exception;
+
+
+class Inscription
 {
     private $id;
     private $idEtudiant;
@@ -60,4 +62,37 @@ class inscription
         $this->idCours = $idCours;
     }
 
+    public function afficherInscription()
+    {
+        $sql = "SELECT * FROM inscription WHERE idEtudiant = :idE AND idCours = :idCours";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(":idE", $this->idEtudiant, PDO::PARAM_INT);
+        $stmt->bindParam(":idCours", $this->idCours, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return new Inscription(
+                $result['id'],
+                $result['idEtudiant'],
+                $result['idCours'],
+                $result['dateInscription']
+            );
+        }
+        return null;
+    }
+
+
+    public function inscrire()
+    {
+        try {
+            $sql = "INSERT INTO inscription(idEtudiant, idCours) VALUES (:idE, :idCours)";
+            $stmt = $this->connect->prepare($sql);
+            $stmt->bindParam(":idE", $this->idEtudiant, PDO::PARAM_INT);
+            $stmt->bindParam(":idCours", $this->idCours, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur lors de l'inscription : " . $e->getMessage());
+        }
+    }
 }

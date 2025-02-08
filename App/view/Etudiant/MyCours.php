@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . "/../../controllers/Etudiant.php";
+// require_once __DIR__ . "/../../controllers/Etudiant.php";
 
-$Etudant = new Etudiant();
-$idE = $_SESSION['user_id'];
-$result = $Etudant->myCours($idE);
+// $Etudant = new Etudiant();
+// $idE = $_SESSION['user_id'];
+// $result = $Etudant->myCours($idE);
 
 ?>
 
