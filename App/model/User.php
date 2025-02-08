@@ -17,14 +17,12 @@ class User extends UserAuth
     public function readUser()
     {
         $sql = "SELECT * FROM utilisateur 
-                JOIN role ON utilisateur.role_id = role.id_role
                 WHERE role_id != 3";
 
         $stmt = $this->connect->query($sql);
         $users = [];
-
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $user = new User($row['id'], $row['email'], $row['motDePasse'], $row['statut'], $row['Action'], $row['nom'], $row['prenom'], $row['Image']);
+            $user = new User($row['id'], $row['email'], $row['motdepasse'], $row['statut'], $row['action'], $row['nom'], $row['prenom'], $row['image']);
             $users[] = $user;
         }
 
@@ -98,9 +96,8 @@ class User extends UserAuth
 
     public function status()
     {
-        $sql = "UPDATE utilisateur SET `statut` = :status WHERE id = :id";
+        $sql = "UPDATE utilisateur SET statut = :status WHERE id = :id";
         $stmt = $this->connect->prepare($sql);
-
         $stmt->bindParam(':status', $this->status, PDO::PARAM_STR);
         $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
 

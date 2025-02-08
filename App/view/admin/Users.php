@@ -168,8 +168,8 @@
               <ul>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
-                    href="./Statistique.php"
+                  <form action="/Statistique"
+                    method="GET"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -185,12 +185,17 @@
                         d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
-                    Statistique</a>
+                    <button>
+                    Statistique
+                    </button>
+                    
+                  </form>
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
-                    href="./Users.php"
+                  <form
+                    action="/Users"
+                    method="GET"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -206,12 +211,16 @@
                         d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    Users</a>
+                    <button>
+                      Users
+                      </button>
+                    </form>
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center">
-                  <a
-                    href="./categorei.PHP"
+                  <form
+                    action="/"
+                    method="GET"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -228,13 +237,16 @@
                       <path
                         d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                     </svg>
-                    Categorei
-                  </a>
+                    <button>
+                      
+                      Categorei
+                    </button>
+                  </form>
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
-                    href="./Tags.PHP"
+                  <form
+                  action="/Tags"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -248,12 +260,18 @@
                       class="feather feather-bookmark">
                       <path
                         d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                    Tage</a>
+                  
+                      </svg>
+                      <button>
+                        Tage
+                      </button>
+                  </form>
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
+                  <form
+                  action="/aprove"
+                  method="GET"
                     href="./ActionAdmin.PHP"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +287,10 @@
                       <path
                         d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    Teachers Rquest</a>
+                    <button>
+                      Teachers Rquest
+                    </button>
+                  </form>
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
@@ -374,7 +395,7 @@
                         if ($row->getStatus() ==  'actif') {
                         ?>
                           <td class="px-5px py-10px md:px-5">
-                            <form action="" method="POST">
+                            <form action="/Status" method="POST">
                               <input type="hidden" name="id" value="<?= $row->getId() ?>">
                               <input type="hidden" name="status" value="suspendu">
                               <p class="text-xs">
@@ -390,7 +411,7 @@
                         } elseif ($row->getStatus() ==  'suspendu') {
                           ?>
                           <td class="px-5px py-10px md:px-5">
-                            <form action="" method="POST">
+                            <form action="/Status" method="POST">
                               <input type="hidden" name="id" value="<?= $row->getId() ?>">
                               <input type="hidden" name="status" value="actif">
                               <p class="text-xs">
@@ -405,8 +426,8 @@
                         }
                           ?>
                           <td class="px-5px py-10px md:px-5">
-                            <form action="" method="POST">
-                              <input type="hidden" name="id" value="<?= $row->getId() ?>">
+                            <form action="/supprime/<?= $row->getId() ?>" method="POST">
+                              
                               <p class="text-xs">
                                 <button
                                   type="submit"

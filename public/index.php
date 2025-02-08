@@ -27,6 +27,10 @@ $router->add('POST', '/SinUp', AuthController::class, 'createUser');
 $router->add('POST', '/login', AuthController::class, 'login');
 $router->add('GET', '/Admin', AuthController::class, 'Index');
 $router->add('POST', '/aprove', AuthController::class, 'aproveUser');
+$router->add('GET', '/Users', AuthController::class, 'getAllUser');
+$router->add('POST', '/Status', AuthController::class, 'updateStatus');
+$router->add('POST', '/supprime/{id}', AuthController::class, 'deleteUser');
+$router->add('GET', '/Statistique', AuthController::class, 'AdminStatistique');
 
 
 

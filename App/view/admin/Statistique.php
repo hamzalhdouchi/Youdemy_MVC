@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . "/../../controllers/AdminController.php";
+// require_once __DIR__ . "/../../controllers/AdminController.php";
 
-$Statistique = new Admin();
-$Top3Techers = $Statistique->Top3Techers();
-$totalStaff = $Statistique->totalStaff();
-$totalEtudiant = $Statistique->totalEtudient();
-$totalUser = $Statistique->totalUsers();
-$totalInactif = $Statistique->totalInactive();
+// $Statistique = new Admin();
+// $Top3Techers = $Statistique->Top3Techers();
+// $totalStaff = $Statistique->totalStaff();
+// $totalEtudiant = $Statistique->totalEtudient();
+// $totalUser = $Statistique->totalUsers();
+// $totalInactif = $Statistique->totalInactive();
 
 ?>
 

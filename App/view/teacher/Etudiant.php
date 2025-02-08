@@ -1,13 +1,13 @@
 <?php
-session_start();
-require_once __DIR__ . "/../../controllers/Teacher.php";
+// session_start();
+// require_once __DIR__ . "/../../controllers/Teacher.php";
 
-$idE = $_SESSION["user_id"];
-$Teacher = new Teacher();
+// $idE = $_SESSION["user_id"];
+// $Teacher = new Teacher();
 
-$totalCours = $Teacher->nombreDeCours($idE);
+// $totalCours = $Teacher->nombreDeCours($idE);
 
-$totalEtudiant = $Teacher->nombreEtudiantsInscrits($idE);
+// $totalEtudiant = $Teacher->nombreEtudiantsInscrits($idE);
 
 ?>
 

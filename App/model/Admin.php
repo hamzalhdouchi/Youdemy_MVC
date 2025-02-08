@@ -18,7 +18,7 @@ class Admin extends UserAuth
 
     public function deletuser($id)
     {
-        $query = "DELETE FROM utilisateurs WHERE id = :id";
+        $query = "DELETE FROM utilisateur WHERE id = :id";
         $stmt = $this->connect->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 

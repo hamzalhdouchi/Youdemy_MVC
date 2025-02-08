@@ -65,8 +65,8 @@ class AuthController
 
     public function getAllUser()
     {
-        $ $this->userModel->readUser();
-        
+        $result = $this->userModel->readUser();
+        require_once __DIR__ . "/../view/admin/Users.php";
     }
 
     public function Index()
@@ -108,12 +108,13 @@ class AuthController
         }
     }
 
-    public function updateStatus($id, $status)
+    public function updateStatus()
     {
-        $this->userModel->setId($id);
-        $this->userModel->setStatus($status);
+        $this->userModel->setId(intval($_POST['id']));
+        $this->userModel->setStatus($_POST['status']);
+
         $this->userModel->status();
-        header("Location: ../admin/Users.PHP");
+        header("Location: /Users");
         exit;
     }
 
@@ -121,38 +122,24 @@ class AuthController
     public function deleteUser($id)
     {
         try {
-            $this->userModel->setId($id);
+            
             $message = $this->adminModel->deletuser($id);
             echo "<script>alert('$message');</script>";
-            header("Location: ../admin/Users.PHP");
+            header("Location: /Users");
             exit;
         } catch (Exception $e) {
             echo "<script>alert('" . addslashes($e->getMessage()) . "');</script>";
         }
     }
 
-    public function getTotalStaff()
+    public function AdminStatistique()
     {
-        return $this->adminModel->totalStaff();
+        $totalStaff = $this->adminModel->totalStaff();
+        $totalInactif = $this->adminModel->totalInactive();
+        $totalEtudiant = $this->adminModel->totalEtudient();
+        $totalUser = $this->adminModel->totalUsers();
+        $Top3Techers = $this->adminModel->Top3Techers();
+        require_once __DIR__."/../view/admin/Statistique.php";
     }
 
-    public function getTotalEtudient()
-    {
-        return $this->adminModel->totalEtudient();
-    }
-
-    public function getTotalUsers()
-    {
-        return $this->adminModel->totalUsers();
-    }
-
-    public function getTotalInactive()
-    {
-        return $this->adminModel->totalInactive();
-    }
-
-    public function getTop3Teachers()
-    {
-        return $this->adminModel->Top3Techers();
-    }
 }
