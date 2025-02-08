@@ -6,8 +6,8 @@ class Router {
 
     public function add($method, $path, $controller, $controllerMethod) {
         $this->routes[] = [
-            'method' => strtoupper($method), // Assure que la méthode est en majuscule (GET, POST)
-            'path' => trim($path, '/'), // Retire les slashes de début et de fin
+            'method' => strtoupper($method),
+            'path' => trim($path, '/'),
             'controller' => $controller,
             'controllerMethod' => $controllerMethod
         ];
@@ -19,11 +19,11 @@ class Router {
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $method) {
-                // Convertir {id} en regex (\d+)
+                
                 $pattern = preg_replace('/\{([^\/]+)\}/', '(\d+)', $route['path']);
 
                 if (preg_match("#^$pattern$#", $uri, $matches)) {
-                    array_shift($matches); // Supprime l'URL complète capturée
+                    array_shift($matches);
                     $controllerClass = $route['controller'];
                     if (!class_exists($controllerClass)) {
                         throw new \Exception("Controller class $controllerClass not found.");

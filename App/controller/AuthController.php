@@ -35,7 +35,6 @@ class AuthController
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["user_profile"] = $user["image"];
 
-            // var_dump($user["role_id"]);
             if ($user["role_id"] === 2) { 
                 if ($user['action'] === 1) {
                     echo "<script>alert('Le compte n\'est pas approuvé');</script>";

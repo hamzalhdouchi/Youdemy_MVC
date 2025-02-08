@@ -1,29 +1,28 @@
-<?php 
+<?php
 
 namespace App\Model;
-
 use App\Config\Database;
+use PDOException,PDO;
 
-abstract class Cours 
+abstract class CoursModel
 {
     protected $id;
     protected $titre;
     protected $description;
-    protected $slogan;
+    protected $slgan;
     protected $categorie_id;
     protected $Tags_id;
     protected $Type = null;
     protected $connect;
     protected $image;
-
     protected $action;
 
-    public function __construct($id = null, $titre = null, $description = null, $slogan = null, $categorie_id = null, $Tags_id = null, $Type = null, $image = null, $action = null)
+    public function __construct($id = null, $titre = null, $description = null, $slgan = null, $categorie_id = null, $Tags_id = null, $Type = null, $image = null, $action = null)
     {
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
-        $this->slogan = $slogan;
+        $this->slgan = $slgan;
         $this->categorie_id = $categorie_id;
         $this->Tags_id = $Tags_id;
         $this->Type = $Type;
@@ -32,6 +31,7 @@ abstract class Cours
         $this->connect = Database::getInstance()->getConnection();
     }
 
+    // Getters
     public function getTitre()
     {
         return $this->titre;
@@ -44,7 +44,7 @@ abstract class Cours
 
     public function getSlgun()
     {
-        return $this->slogan;
+        return $this->slgan;
     }
 
     public function getId()
@@ -61,40 +61,41 @@ abstract class Cours
     {
         return $this->image;
     }
+
     public function getAction()
     {
         return $this->action;
     }
 
-    public function setaction($action)
+    // Setters
+    public function setAction($action)
     {
         $this->action = $action;
     }
-    public function setcategorie_id($categorie_id)
+
+    public function setCategorieId($categorie_id)
     {
         $this->categorie_id = $categorie_id;
     }
 
-    public function setid($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-    public function setTags_id($Tags_id)
+    public function setTagsId($Tags_id)
     {
         $this->Tags_id = $Tags_id;
     }
-
 
     public function setTitre($titre)
     {
         $this->titre = $titre;
     }
 
-
-    public function setSlgun($slogan)
+    public function setSlgun($slgan)
     {
-        $this->slogan = $slogan;
+        $this->slgan = $slgan;
     }
 
     public function setDescription($description)
@@ -106,12 +107,75 @@ abstract class Cours
     {
         $this->Type = $Type;
     }
+
     public function setImage($image)
     {
         $this->image = $image;
     }
 
+    // Méthodes abstraites
     abstract public function ajouterCours();
 
     abstract public function afficherCours();
+
+    // Méthodes concrètes
+    public function deletCours()
+    {
+        $sql = "DELETE FROM cours WHERE id_cours = :id";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(":id", $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public static function StatiqueCours()
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $sql = "SELECT categorie_id, COUNT(*) AS total FROM cours GROUP BY categorie_id";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur dans StatiqueCours : " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public static function afficherTousLesCours($itemsPerPage, $offset)
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $sql = "
+                SELECT * FROM cours C
+                JOIN utilisateur U ON C.Enseignant_id = U.id
+                LEFT JOIN courstag AS T ON T.idCours = C.id_cours
+                LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
+                WHERE C.action = 1
+                LIMIT :limit OFFSET :offset
+            ";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':limit', $itemsPerPage, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur dans afficherTousLesCours : " . $e->getMessage());
+            return ["error" => "Impossible de récupérer les cours pour le moment."];
+        }
+    }
+
+    public static function countCours()
+    {
+        try {
+            $db = Database::getInstance()->getConnection();
+            $sql = "SELECT COUNT(*) as total FROM cours";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['total'];
+        } catch (PDOException $e) {
+            error_log("Erreur dans countCours : " . $e->getMessage());
+            return 0;
+        }
+    }
 }
