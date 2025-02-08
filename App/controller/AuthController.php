@@ -1,15 +1,19 @@
 <?php
 namespace App\Controller;
 use App\Model\UserAuth;
+use App\Model\User;
 use Exception;
 
 class AuthController
 {
     private $userAuthModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->userAuthModel = new UserAuth();
+        $this->userModel = new User();
+
     }
 
     public function login($email, $password)
@@ -44,5 +48,62 @@ class AuthController
                 });
             </script>";
         }
+    }
+
+    public function Index()
+    {
+        return $this->userModel->readUser();
+    }
+
+    public function getEnseignants()
+    {
+        return $this->userModel->GetEnseignant();
+    }
+
+    public function aproveUser($id)
+    {
+        $this->userModel->setId($id);
+        $this->userModel->Aprove();
+        header("Location: ../admin/ActionAdmin.PHP");
+        exit;
+    }
+
+    public function createUser($name, $username, $email, $password, $role, $image)
+    {
+        $this->userModel->setName($name);
+        $this->userModel->setUsername($username);
+        $this->userModel->setEmail($email);
+        $this->userModel->setPassword($password);
+        $this->userModel->setRole($role);
+
+        try {
+            $this->userModel->setUser($image);
+            header("Location: ../views/success.php");
+            exit;
+        } catch (Exception $e) {
+            echo "<script>Swal.fire({
+                title: 'Erreur!',
+                text: '" . addslashes($e->getMessage()) . "',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });</script>";
+        }
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $this->userModel->setId($id);
+        $this->userModel->setStatus($status);
+        $this->userModel->status();
+        header("Location: ../admin/Users.PHP");
+        exit;
+    }
+
+    public function deleteUser($id)
+    {
+        $this->userModel->setId($id);
+        $this->userModel->suppriméUser();
+        header("Location: ../admin/Users.PHP");
+        exit;
     }
 }
