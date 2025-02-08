@@ -102,11 +102,42 @@ class AuthController
         exit;
     }
 
+
     public function deleteUser($id)
     {
-        $this->userModel->setId($id);
-        $this->userModel->suppriméUser();
-        header("Location: ../admin/Users.PHP");
-        exit;
+        try {
+            $this->userModel->setId($id);
+            $message = $this->adminModel->deletuser($id);
+            echo "<script>alert('$message');</script>";
+            header("Location: ../admin/Users.PHP");
+            exit;
+        } catch (Exception $e) {
+            echo "<script>alert('" . addslashes($e->getMessage()) . "');</script>";
+        }
+    }
+
+    public function getTotalStaff()
+    {
+        return $this->adminModel->totalStaff();
+    }
+
+    public function getTotalEtudient()
+    {
+        return $this->adminModel->totalEtudient();
+    }
+
+    public function getTotalUsers()
+    {
+        return $this->adminModel->totalUsers();
+    }
+
+    public function getTotalInactive()
+    {
+        return $this->adminModel->totalInactive();
+    }
+
+    public function getTop3Teachers()
+    {
+        return $this->adminModel->Top3Techers();
     }
 }
