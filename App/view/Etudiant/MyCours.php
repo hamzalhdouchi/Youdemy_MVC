@@ -1,15 +1,3 @@
-<?php
-
-// require_once __DIR__ . "/../../controllers/Etudiant.php";
-
-// $Etudant = new Etudiant();
-// $idE = $_SESSION['user_id'];
-// $result = $Etudant->myCours($idE);
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,9 +117,12 @@
             </h1>
             <ul class="flex gap-1 justify-center">
               <li>
-                <a
-                  href="./HOME.php"
-                  class="text-lg text-blackColor2 dark:text-blackColor2-dark">Home <i class="icofont-simple-right"></i></a>
+                <form
+                  action="/Cours"
+                  method="post"
+                  class="text-lg text-blackColor2 dark:text-blackColor2-dark">
+                  <button type="submit">Home</button>
+                  <i class="icofont-simple-right"></i></form>
               </li>
               <li>
                 <span

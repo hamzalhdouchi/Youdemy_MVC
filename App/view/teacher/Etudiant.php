@@ -1,20 +1,6 @@
-<?php
-// session_start();
-// require_once __DIR__ . "/../../controllers/Teacher.php";
-
-// $idE = $_SESSION["user_id"];
-// $Teacher = new Teacher();
-
-// $totalCours = $Teacher->nombreDeCours($idE);
-
-// $totalEtudiant = $Teacher->nombreEtudiantsInscrits($idE);
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from html.themewin.com/edurcok-preview-tailwind/edurock/pages/dashboards/instructor-announcments.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 11 Jan 2025 14:27:53 GMT -->
 
 <head>
   <meta charset="UTF-8">

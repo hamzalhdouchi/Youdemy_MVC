@@ -227,10 +227,9 @@
 
                           <div class="flex space-x-4">
 
-                            <form action="" method="post">
+                            <form action="/inscrire/<?= $cours["Cours"]->getId()?>" method="POST">
                               <input type="hidden" name="id_user" value="<?= $_SESSION['user_id'] ?>">
-                              <input type="hidden" name="Cours" value="<?= $id_Cours ?>">
-                              <button type="submit" name="inscription" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 transition duration-200">
+                              <button type="submit" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 transition duration-200">
                                 S'inscrire
                               </button>
                             </form>

@@ -74,9 +74,9 @@ class Inscription
         if ($result) {
             return new Inscription(
                 $result['id'],
-                $result['idEtudiant'],
-                $result['idCours'],
-                $result['dateInscription']
+                $result['idetudiant'],
+                $result['idcours'],
+                $result['dateinscription']
             );
         }
         return null;

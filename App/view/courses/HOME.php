@@ -314,9 +314,11 @@
                 <!-- Add any other content if needed -->
               </div>
             </div>
-            <a href="./course-details.php?id=<?= $course['Cours']->getId() ?>" class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-              <?= htmlspecialchars($course['Cours']->getTitre()) ?>
-            </a>
+            <form action="/courseDetails/<?= $course['Cours']->getId() ?>" class="text-xl font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+              <button>
+                <?= htmlspecialchars($course['Cours']->getTitre()) ?>
+              </button>
+            </form>
             <!-- price -->
             <div class="text-lg font-semibold text-primaryColor font-inter mb-4">
               <?= htmlspecialchars($course['Cours']->getSlgun()) ?>

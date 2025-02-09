@@ -295,10 +295,10 @@ class CoursDocument extends Cours
                         $resulte['id_cours'],
                         $resulte['titre'],
                         $resulte['description'],
-                        $resulte['Slgan'],
+                        $resulte['slgan'],
                         null,
                         null,
-                        $resulte['Type'],
+                        $resulte['type'],
                         $resulte['image'],
                         $resulte['contenu']
                     ),
@@ -311,7 +311,7 @@ class CoursDocument extends Cours
                         $resulte['nom'],
                         $resulte['prenom']
                     ),
-                    'Tags' => new Tags($resulte['id_Tag'], $resulte['nom_Tag'])
+                    'Tags' => new Tags($resulte['id_tag'], $resulte['nom_tag'])
                 ];
             } else {
                 return null;

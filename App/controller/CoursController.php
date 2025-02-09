@@ -7,6 +7,8 @@ use App\Model\Cours;
 use App\Model\Tags;
 use App\Model\Categorie;
 use App\Model\CoursVideo;
+use App\Model\Inscription;
+
 use Exception;
 
 class CoursController
@@ -15,6 +17,7 @@ class CoursController
     private $tagsModel;
     private $categorieModel;
     private $coursVideoModel;
+    private $inscriptionModel;
 
     public function __construct()
     {
@@ -22,6 +25,7 @@ class CoursController
         $this->tagsModel = new Tags();
         $this->categorieModel = new Categorie();
         $this->coursVideoModel = new CoursVideo();
+        $this->inscriptionModel = new Inscription();
     }
 
     // Afficher la page de création de cours
@@ -69,15 +73,33 @@ class CoursController
         return CoursDocument::countCours();
     }
 
-    public function afficherCoursParId($cours_id)
+    public function afficherCoursParId($id)
     {
         try {
-            return $this->coursModel->AffecherCoursByCategorei($cours_id);
+            $idE = $_SESSION["user_id"];
+            $this->inscriptionModel->setIdCours($id);
+            $this->inscriptionModel->setIdEtudiant($idE);
+            $cours = $this->coursModel->AffecherCoursByCategorei($id);
+            $result = $this->inscriptionModel->afficherInscription();
+            var_dump($cours["Cours"]->getId());
+            require_once __DIR__ ."/../view/courses/course-details.php";
         } catch (Exception $e) {
             echo "<script>alert('" . addslashes($e->getMessage()) . "');</script>";
             return null;
         }
     }
+
+      public function Inscription($id)
+    {
+        try {
+            $idE = $_SESSION["user_id"];
+            $this->inscriptionModel->setIdCours($id);
+            $this->inscriptionModel->setIdEtudiant($idE);
+            $this->inscriptionModel->inscrire();
+     } catch (Exception $e) {
+        echo "not inscription" . $e->getMessage();
+    }
+}
 
     public function ajouterCours()
     {

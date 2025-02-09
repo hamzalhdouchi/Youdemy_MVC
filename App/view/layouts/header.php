@@ -56,12 +56,16 @@
           <div class="hidden lg:block lg:col-start-3 lg:col-span-7">
             <ul class="nav-list flex justify-center">
               <li class="nav-item group">
-                <a
-                  href="./HOME.php"
+                <form
+                  action="/Cours"
+                  method="post"
                   class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                  Home
+                  <button>
 
-                </a>
+                    Home
+                  </button>
+
+</form>
                 <!-- dropdown menu -->
               </li>
               <li class="nav-item group">
@@ -74,12 +78,16 @@
                 <!-- dropdown menu -->
               </li>
               <li class="nav-item group">
-                <a
-                  href="../Etudiant/MyCours.php"
+                <form
+                  action="/Etudiant"
+                  method="get"
                   class="px-5 lg:px-10px 2xl:px-15px 3xl:px-5 py-10 lg:py-5 2xl:py-30px 3xl:py-10 leading-sm 2xl:leading-lg text-base lg:text-sm 2xl:text-base font-semibold block group-hover:text-primaryColor dark:text-whiteColor">
-                  My Courses
+                  <button>
 
-                </a>
+                    My Courses
+                  </button>
+
+</from>
                 <!-- dropdown menu -->
               </li>
 
@@ -90,9 +98,14 @@
           <div class="lg:col-start-10 lg:col-span-3">
             <ul class="relative nav-list flex justify-end items-center">
 
-              <a
-                href=".././auth/login.php"
-                class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor">Login</a>
+              <form
+                action="/inscription"
+                method="GET"
+                class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor">
+                <button class="text-size-12 2xl:text-size-15 text-whiteColor bg-primaryColor block border-primaryColor border hover:text-primaryColor hover:bg-white px-15px py-2 rounded-standard dark:hover:bg-whiteColor-dark dark: dark:hover:text-whiteColor" type="submit">
+                Login
+              </button>
+              </form>
               </li>
               <li class="block lg:hidden">
                 <button

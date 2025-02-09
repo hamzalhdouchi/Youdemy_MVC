@@ -47,6 +47,8 @@ $router->add('POST', '/ModifierVideo/{id}', CoursController::class, 'modifierCou
 $router->add('POST', '/course_By_categorei/{id}', CoursController::class, 'afficherCoursParCategorie');
 $router->add('GET', '/AproveCours', CoursController::class, 'afficherCoursDashboard');
 $router->add('POST', '/submitAprove', CoursController::class, 'approuverCours');
+$router->add('GET', '/courseDetails/{id}', CoursController::class, 'afficherCoursParId');
+$router->add('POST', '/inscrire/{id}', CoursController::class, 'Inscription');
 
 
 $router->add('GET', '/Etudiant', EtudiantController::class, 'myCours');
