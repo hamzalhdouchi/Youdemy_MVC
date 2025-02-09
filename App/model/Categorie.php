@@ -92,8 +92,8 @@ class Categorie
                 
                     $name = htmlspecialchars($postdata["categorie_name_$i"]);
                     $slogan = htmlspecialchars($postdata["categorie_slogan_$i"]);
-                    var_dump($name);
-                    var_dump($slogan);
+                    ($name);
+                    ($slogan);
                     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
                     $stmt->bindParam(':slogan', $slogan, PDO::PARAM_STR);
                     $stmt->execute();

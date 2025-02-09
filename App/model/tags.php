@@ -61,7 +61,7 @@ class Tags
         $tags = [];
         
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            var_dump($row);
+            ($row);
             $tags[] = new self($row['id_tag'], $row['nom_tag'], $row['color']);
         }
 

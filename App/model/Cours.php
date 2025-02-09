@@ -27,7 +27,7 @@ abstract class Cours
         $this->Tags_id = $Tags_id;
         $this->Type = $Type;
         $this->image = $image;
-        $this->action = $action;
+        $this->action = $action ; 
         $this->connect = Database::getInstance()->getConnection();
     }
 

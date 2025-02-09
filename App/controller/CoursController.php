@@ -29,7 +29,6 @@ class CoursController
     {
         $categoreis = $this->categorieModel->getCategories();
         $tag = $this->tagsModel->getTags();
-
         require_once __DIR__ . "/../view/courses/create-course.php";
     }
 
@@ -57,7 +56,7 @@ class CoursController
         $offset = ($currentPage - 1) * $itemsPerPage;
         $courses = Cours::afficherTousLesCours($itemsPerPage, $offset);
         $tags = $this->tagsModel->getTags();
-        $categories = $this->categorieModel->getCategories();
+        $categorei = $this->categorieModel->getCategories();
 
         $totalCours = Cours::countCours();
         $totalPages = ($totalCours > 0) ? ceil($totalCours / $itemsPerPage) : 1;
@@ -139,16 +138,6 @@ class CoursController
         }
     }
 
-    public function supprimerCoursVideo($id)
-    {
-        try {
-            $this->coursVideoModel->supprimerCours($id);
-            header("Location: /path/to/success/page");
-            exit;
-        } catch (Exception $e) {
-            echo "Erreur : " . $e->getMessage();
-        }
-    }
 
     public function modifierCoursVideo($id)
     {
@@ -157,7 +146,7 @@ class CoursController
             $title = htmlspecialchars($_POST['Title']);
                 $slug = htmlspecialchars($_POST['Slug']);
                 $Categorei = $_POST['Categorei'];
-                var_dump($_POST['Slug']);
+                ($_POST['Slug']);
                 if (isset($_POST['Tags']) && is_array($_POST['Tags'])) {
                     $Tags = $_POST['Tags'];  // $Tags is now an array
                 
@@ -211,7 +200,13 @@ class CoursController
     public function afficherCoursParCategorie($id_categorie)
     {
         try {
-            return $this->coursVideoModel->afficherCoursParCategorie($id_categorie);
+            $result =  $this->coursVideoModel->afficherCoursParCategorie($id_categorie);
+            
+            if ($result == null) {
+              header("Location: /Cours");
+              exit;
+            }
+            require_once __DIR__. "/../view/courses/course_By_categorei.php";
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return [];
@@ -239,19 +234,23 @@ class CoursController
     public function afficherCoursDashboard()
     {
         try {
-            $result = $this->coursVideoModel->afficherCoursDashboard();
-            require_once __DIR__. "/../view/courses/course_By_categorei.php";
+            $result =  $this->coursVideoModel->afficherCoursDashboard();
+           
+            require_once __DIR__. "/../view/admin/aprovCours.php";
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return [];
         }
     }
 
-    public function approuverCours($id)
+    public function approuverCours()
     {
         try {
-            $this->coursVideoModel->approuverCours($id);
-            header("Location: /path/to/success/page");
+            $this->coursVideoModel->setid($_POST["id"]);
+            
+             $this->coursVideoModel->approuverCours();
+             header("Location: /AproveCours");
+
             exit;
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();

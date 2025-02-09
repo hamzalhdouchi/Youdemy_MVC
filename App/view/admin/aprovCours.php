@@ -1,16 +1,16 @@
 <?php
 
-require_once __DIR__ . "/../../controllers/CoursVideo.php";
-$userName = $_SESSION['user_name'];
+// require_once __DIR__ . "/../../controllers/CoursVideo.php";
+// $userName = $_SESSION['user_name'];
 
-$cours = new CoursVideo();
+// $cours = new CoursVideo();
 
-$result = $cours->afficherCourDach();
+// $result = $cours->afficherCourDach();
 
-if (isset($_POST["submitAprove"])) {
-    $cours->setid($_POST["id"]);
-    $cours->AproveCours();
-}
+// if (isset($_POST["submitAprove"])) {
+//     $cours->setid($_POST["id"]);
+//     $cours->AproveCours();
+// }
 ?>
 
 <!DOCTYPE html>
@@ -38,15 +38,15 @@ if (isset($_POST["submitAprove"])) {
 <body
     class="relative font-inter font-normal text-base leading-[1.8] bg-bodyBg dark:bg-bodyBg-dark">
     <!-- preloader -->
-    <div
+    <!-- <div
         class="preloader flex fixed top-0 left-0 h-screen w-full items-center justify-center z-xxl bg-whiteColor opacity-100 visible transition-all duration-700">
-        <!-- spinner -->
+        
         <div
             class="w-90px h-90px border-5px border-t-blue border-r-blue border-b-blue-light border-l-blue-light rounded-full animate-spin-infinit"></div>
         <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
             <img src="../assets/images/pre.png" alt="" class="h-10 w-10 block">
         </div>
-    </div>
+    </div> -->
     <!-- theme fixed shadow -->
     <div>
         <div class="fixed-shadow left-[-250px]"></div>
@@ -123,7 +123,7 @@ if (isset($_POST["submitAprove"])) {
                         </div>
                         <div class="text-whiteColor font-bold text-center sm:text-start">
                             <h5 class="text-xl leading-1.2 mb-5px">Hello</h5>
-                            <h2 class="text-2xl leading-1.24"><?= $userName ?> <?= $_SESSION['prenom'] ?></h2>
+                            <h2 class="text-2xl leading-1.24"><?= $_SESSION['user_name']  ?> <?= $_SESSION['prenom'] ?></h2>
 
                         </div>
                     </div>
@@ -143,7 +143,7 @@ if (isset($_POST["submitAprove"])) {
                             <!-- greeting -->
                             <h5
                                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                                <?= $userName ?> <?= $_SESSION['prenom'] ?>
+                                <?= $_SESSION['user_name'] ?> <?= $_SESSION['prenom'] ?>
                             </h5>
                             <ul>
                                 <li
@@ -332,6 +332,7 @@ if (isset($_POST["submitAprove"])) {
                                         class="text-size-13 md:text-base text-contentColor dark:text-contentColor-dark font-normal">
                                         <?php
                                         foreach ($result as $row):
+                                        
                                         ?>
                                             <tr class="leading-1.8 md:leading-1.8">
 
@@ -354,9 +355,9 @@ if (isset($_POST["submitAprove"])) {
                                                 <td class="px-5px py-10px md:px-5">
                                                     <div class="dashboard__button__group">
                                                         <?php
-                                                        if ($row->getAction() == 0) {
+                                                        if ($row->getType() == false) {
                                                         ?>
-                                                            <form action="" method="POST">
+                                                            <form action="submitAprove" method="POST">
                                                                 <input type="hidden" name="id" value="<?= $row->getId() ?>">
                                                                 <button
                                                                     name="submitAprove"

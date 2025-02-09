@@ -141,7 +141,7 @@ use App\Controller\CategorieController;
             </div>
             <div class="text-whiteColor font-bold text-center sm:text-start">
               <h5 class="text-xl leading-1.2 mb-5px">Hello</h5>
-              <h2 class="text-2xl leading-1.24"><?= $userName ?> <?= $_SESSION['prenom'] ?></h2>
+              <h2 class="text-2xl leading-1.24"><?= $ $_SESSION['user_name'] ?> <?= $_SESSION['prenom'] ?></h2>
 
             </div>
           </div>
@@ -233,7 +233,7 @@ use App\Controller\CategorieController;
               <!-- greeting -->
               <h5
                 class="text-sm leading-1 font-semibold uppercase text-contentColor dark:text-contentColor-dark bg-lightGrey5 dark:bg-whiteColor-dark p-10px pb-7px mt-5 mb-10px">
-                <?= $userName ?> <?= $_SESSION['prenom'] ?>
+                <?=  $_SESSION['user_name'] ?><?= $_SESSION['prenom'] ?>
               </h5>
               <ul>
                 <li

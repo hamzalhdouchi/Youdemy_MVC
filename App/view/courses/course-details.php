@@ -337,7 +337,7 @@
 
     </div>
   </div>
-  <?php include '../layouts/footer.php' ?>
+  <?php include __DIR__. '/../layouts/footer.php' ?>
   <script src="../assets/js/swiper-bundle.min.js"></script>
   <script src="../assets/js/isotope.pkgd.min.js"></script>
   <script src="../assets/js/accordion.js"></script>

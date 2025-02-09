@@ -1,29 +1,3 @@
-<?php
-// require_once __DIR__ . "/../../controllers/categorei.php";
-// require_once __DIR__ . "/../../controllers/CourseController.php";
-
-
-// $categoreis = new categorie();
-// $categorei   = $categoreis->getCategories();
-
-// $tags = new Tags();
-
-// $tag =  $tags->getTags();
-
-// $total = Cours::StatiqueCours();
-
-
-//  = Cours::afficherTousLesCours($itemsPerPage, $offset);
-
-// $totalCours = Cours::countCours();
-// $totalPages = ($totalCours > 0) ? ceil($totalCours / $itemsPerPage) : 1;
-
-
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,7 +79,7 @@
     </button>
   </div>
   <!--======= Header area start =======-->
-  <?php include '../layouts/header.php' ?>
+  <?php include __DIR__. '/../layouts/header.php' ?>
 
   <!-- main body -->
   <main class="bg-transparent">
@@ -391,34 +365,37 @@
 
     <!-- Popular Subject Sectoion-->
 
-
     <section class="mt-20">
-      <div class="container">
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-30px pt-10 md:pt-0 pb-100px">
-          <?php
-          foreach ($categorei as $row):
-            $categorie = $row[0];
-            $cour = $row[1];
-          ?>
-            <form
-            action="/course_By_categorei/<?= $categorie->getIdC() ?>"
-            method="POST"
-              class="pt-5 pb-15px px-30px rounded-5px bg-borderColor text-center hover:bg-secondaryColor dark:bg-borderColor-dark dark:hover:bg-secondaryColor group"
-              data-aos="fade-up">
-              <h4
-                class="text-blackColor text-lg font-medium group-hover:text-blackColor-dark dark:text-blackColor-dark">
-                <?= $categorie->getNomCategorie() ?>
-              </h4>
-              <p
-                class="text-xs text-contentColor group-hover:text-contentColor-dark dark:text-contentColor-dark">
-                <?= $cour->getId() ?> Courses
-              </p>
-            </a>
-          <?php endforeach ?>
-        </div>
-      </div>
-    </section>
+  <div class="container">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-30px pt-10 md:pt-0 pb-100px">
+      <?php foreach ($categorei as $row): 
+        $categorie = $row[0];
+        $cour = $row[1];
+      ?>
+        <form
+          action="/course_By_categorei/<?= $categorie->getIdC() ?>"
+          method="POST"
+          class="pt-5 pb-15px px-30px rounded-5px bg-borderColor text-center hover:bg-secondaryColor dark:bg-borderColor-dark dark:hover:bg-secondaryColor group"
+          data-aos="fade-up">
+          
+          <button type="submit" class="w-full">
+            <h4
+              class="text-blackColor text-lg font-medium group-hover:text-blackColor-dark dark:text-blackColor-dark">
+              <?= $categorie->getNomCategorie() ?>
+            </h4>
+            <p
+              class="text-xs text-contentColor group-hover:text-contentColor-dark dark:text-contentColor-dark">
+              <?= $cour->getId() ?> Courses
+            </p>
+          </button>
+
+        </form>
+      <?php endforeach ?>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -534,7 +511,7 @@
       </section>
 
   </main>
-  <?php include '../layouts/footer.php' ?>
+  <?php include __DIR__. '/../layouts/footer.php' ?>
   <script src="../assets/js/swiper-bundle.min.js"></script>
   <script src="../assets/js/isotope.pkgd.min.js"></script>
   <script src="../assets/js/accordion.js"></script>

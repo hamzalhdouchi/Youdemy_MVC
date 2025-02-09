@@ -37,7 +37,7 @@ class CoursDocument extends Cours
                     throw new Exception("Type d'image non valide.");
                 }
             }
-                var_dump($this->action);
+                ($this->action);
             // Gestion du document
             if (isset($this->action) && $this->action['error'] === UPLOAD_ERR_OK) {
                 $fileType = mime_content_type($this->action['tmp_name']);

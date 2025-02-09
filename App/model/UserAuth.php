@@ -130,7 +130,7 @@ class UserAuth
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        var_dump($user);
+        ($user);
         if ($user) {
             $this->setId($user['id']);
             $this->setEmail($user['email']);

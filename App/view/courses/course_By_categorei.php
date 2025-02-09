@@ -1,19 +1,3 @@
-<?php
-
-// require_once __DIR__ . "/../../controllers/CoursVideo.php";
-// $id_categorei = $_GET['idC'];
-// $Cours = new CoursVideo();
-
-// $result = $Cours->AffecherCoursByCategorei($id_categorei);
-// if ($result == null) {
-//   header("Location: ../courses/HOME.php");
-//   exit;
-// }
-
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -193,6 +177,7 @@
                 $cours = $course["Cours"];
                 $user = $course["User"];
                 $Tags = $course["Tags"];
+            
               ?>
                 <div class="group">
                   <div class="tab-content-wrapper" data-aos="fade-up">
@@ -225,11 +210,7 @@
                         <div class="grid grid-cols-2 mb-15px">
 
                         </div>
-                        <a
-                          href="course.html"
-                          class="text-lg font-semibold text-blackColor mb-10px font-hind dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
-                          <?= $Cours->getTitre() ?>
-                        </a>
+                        
                         <!-- price -->
                         <div
                           class="text-lg font-semibold text-primaryColor font-inter mb-4">
