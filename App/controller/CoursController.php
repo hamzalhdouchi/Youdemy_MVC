@@ -6,7 +6,7 @@ use App\Model\CoursDocument;
 use App\Model\Cours;
 use App\Model\Tags;
 use App\Model\Categorie;
-use App\Model\CoursVideoModel;
+use App\Model\CoursVideo;
 use Exception;
 
 class CoursController
@@ -21,7 +21,16 @@ class CoursController
         $this->coursModel = new CoursDocument();
         $this->tagsModel = new Tags();
         $this->categorieModel = new Categorie();
-        $this->coursVideoModel = new CoursVideoModel();
+        $this->coursVideoModel = new CoursVideo();
+    }
+
+    // Afficher la page de création de cours
+    public function createCour()
+    {
+        $categoreis = $this->categorieModel->getCategories();
+        $tag = $this->tagsModel->getTags();
+
+        require_once __DIR__ . "/../view/courses/create-course.php";
     }
 
     // Supprimer un cours
@@ -98,19 +107,55 @@ class CoursController
         }
     }
 
-    // Ajouter un cours de type vidéo
-    public function ajouterCoursVideo($data)
+    // Ajouter un cours (document ou vidéo)
+    public function ajouterCours()
     {
         try {
-            $this->coursVideoModel->ajouterCours($data);
-            header("Location: /path/to/success/page");
-            exit;
+            if ($_POST['Type'] == 'document') {
+
+                // Configuration des données pour un cours de type document
+                $idE = $_SESSION['user_id'];
+                $this->coursModel->setid($idE);
+                $this->coursModel->setTitre($_POST['Title']);
+                $this->coursModel->setDescription($_POST['About']);
+                $this->coursModel->setSlgun($_POST['Slug']);
+                $this->coursModel->setCategorieId($_POST['Categorei']);
+                $this->coursModel->setTagsId($_POST['Tags']);
+                $this->coursModel->setImage($_FILES['image']);
+                $this->coursModel->setDocument($_FILES['centenu_pdf']);
+
+                if ($this->coursModel->ajouterCours()) {
+                    header("Location: /Create");
+                    exit;
+                } else {
+                    throw new Exception("Erreur lors de l'ajout du cours document.");
+                }
+            } elseif(($_POST['Type'] == 'video')) {
+                
+                $idE = $_SESSION['user_id'];
+                $this->coursVideoModel->setid($idE);
+                $this->coursVideoModel->setTitre($_POST['Title']);
+                $this->coursVideoModel->setTitre($_POST['Title']);
+                $this->coursVideoModel->setDescription($_POST['About']);
+                $this->coursVideoModel->setSlgun($_POST['Slug']);
+                $this->coursVideoModel->setCategorieId($_POST['Categorei']);
+                $this->coursVideoModel->setTagsId($_POST['Tags']);
+                $this->coursVideoModel->setType('video');
+                $this->coursVideoModel->setImage($_FILES['image']);
+                $this->coursVideoModel->setVideo($_POST['centenu_video']);
+
+                if ($this->coursVideoModel->ajouterCours($idE)) {
+                    header("Location: /Create");
+                    exit;
+                } else {
+                    throw new Exception("Erreur lors de l'ajout du cours vidéo.");
+                }
+            }
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
         }
     }
 
-    // Afficher les cours de type vidéo
     public function afficherCoursVideo($id = null)
     {
         try {
@@ -121,7 +166,6 @@ class CoursController
         }
     }
 
-    // Supprimer un cours de type vidéo
     public function supprimerCoursVideo($id)
     {
         try {
@@ -133,7 +177,6 @@ class CoursController
         }
     }
 
-    // Modifier un cours de type vidéo
     public function modifierCoursVideo($id, $data)
     {
         try {
@@ -145,7 +188,6 @@ class CoursController
         }
     }
 
-    // Afficher les cours par catégorie
     public function afficherCoursParCategorie($id_categorie)
     {
         try {
@@ -156,7 +198,6 @@ class CoursController
         }
     }
 
-    // Afficher un cours spécifique de type vidéo
     public function afficherCoursSpecifiqueVideo($id)
     {
         try {
@@ -167,7 +208,6 @@ class CoursController
         }
     }
 
-    // Afficher les cours pour le tableau de bord
     public function afficherCoursDashboard()
     {
         try {
@@ -178,7 +218,6 @@ class CoursController
         }
     }
 
-    // Approuver un cours
     public function approuverCours($id)
     {
         try {

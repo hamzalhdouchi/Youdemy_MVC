@@ -3,7 +3,7 @@ namespace App\Model;
 use App\Model\Cours;
 use PDO,PDOException,Exception;
 
-class CoursVideoModel extends Cours
+class CoursVideo extends Cours
 {
     private $contenu_video;
 
@@ -26,6 +26,7 @@ class CoursVideoModel extends Cours
     public function ajouterCours()
     {
         try {
+            
             if (isset($this->image['tmp_name']) && $this->image['tmp_name'] != '') {
                 $uploadDir = '../views/assets/img/';
                 if (!is_dir($uploadDir)) {
@@ -41,10 +42,11 @@ class CoursVideoModel extends Cours
             } else {
                 throw new Exception("Aucune image valide fournie.");
             }
-
+            
             $sql = "INSERT INTO cours (titre, description, Slgan, Type, Enseignant_id, contenu, categorie_id, image) 
                     VALUES (:titre, :description, :Slgan, 'video', :idE, :contenu, :categorie, :image)";
             $stmt = $this->connect->prepare($sql);
+            
             $stmt->bindParam(':titre', $this->titre, PDO::PARAM_STR);
             $stmt->bindParam(':description', $this->description, PDO::PARAM_STR);
             $stmt->bindParam(':Slgan', $this->slgan, PDO::PARAM_STR);

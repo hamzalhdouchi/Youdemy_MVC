@@ -67,7 +67,16 @@ abstract class Cours
         return $this->action;
     }
 
+    public function getDocument()
+    {
+        return $this->action;
+    }
+
     // Setters
+    public function setDocument($action)
+    {
+        $this->action = $action;
+    }
     public function setAction($action)
     {
         $this->action = $action;

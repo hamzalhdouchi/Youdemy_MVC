@@ -5,26 +5,13 @@ use PDO,PDOException,Exception;
 
 class CoursDocument extends Cours
 {
-    private $contenu_document;
 
-    public function __construct($id = null, $titre = null, $description = null, $slgan = null, $categorie_id = null, $Tags_id = null, $Type = 'document', $image = null, $contenu_document = null)
+    public function __construct($id = null, $titre = null, $description = null, $slgan = null, $categorie_id = null, $Tags_id = null, $Type = 'document', $image = null, $action = null)
     {
-        parent::__construct($id, $titre, $description, $slgan, $categorie_id, $Tags_id, $Type, $image);
-        $this->contenu_document = $contenu_document;
+        parent::__construct($id, $titre, $description, $slgan, $categorie_id, $Tags_id, $Type, $image,$action);
     }
 
-   
-    public function getDocument()
-    {
-        return $this->contenu_document;
-    }
 
-    public function setDocument($contenu_document)
-    {
-        $this->contenu_document = $contenu_document;
-    }
-
-  
     public function ajouterCours()
     {
         try {
@@ -50,20 +37,20 @@ class CoursDocument extends Cours
                     throw new Exception("Type d'image non valide.");
                 }
             }
-
+                var_dump($this->action);
             // Gestion du document
-            if (isset($this->contenu_document) && $this->contenu_document['error'] === UPLOAD_ERR_OK) {
-                $fileType = mime_content_type($this->contenu_document['tmp_name']);
+            if (isset($this->action) && $this->action['error'] === UPLOAD_ERR_OK) {
+                $fileType = mime_content_type($this->action['tmp_name']);
                 if ($fileType === 'application/pdf') {
                     $uploadDir = './assets/documents';
                     if (!is_dir($uploadDir)) {
                         mkdir($uploadDir, 0777, true);
                     }
 
-                    $fileName = uniqid() . '-' . basename($this->contenu_document['name']);
+                    $fileName = uniqid() . '-' . basename($this->action['name']);
                     $documentPath = $uploadDir . '/' . $fileName;
 
-                    if (!move_uploaded_file($this->contenu_document['tmp_name'], $documentPath)) {
+                    if (!move_uploaded_file($this->action['tmp_name'], $documentPath)) {
                         throw new Exception("Échec de l'upload du document.");
                     }
                 } else {
@@ -204,17 +191,17 @@ class CoursDocument extends Cours
             }
 
             // Gestion du document
-            if (isset($this->contenu_document) && $this->contenu_document['error'] === UPLOAD_ERR_OK) {
-                $fileType = mime_content_type($this->contenu_document['tmp_name']);
+            if (isset($this->action) && $this->action['error'] === UPLOAD_ERR_OK) {
+                $fileType = mime_content_type($this->action['tmp_name']);
                 if ($fileType === 'application/pdf') {
                     $uploadDir = '../coursContnu/assets/documents';
                     if (!is_dir($uploadDir)) {
                         mkdir($uploadDir, 0777, true);
                     }
-                    $fileName = uniqid() . '-' . basename($this->contenu_document['name']);
+                    $fileName = uniqid() . '-' . basename($this->action['name']);
                     $documentPath = $uploadDir . '/' . $fileName;
 
-                    if (!move_uploaded_file($this->contenu_document['tmp_name'], $documentPath)) {
+                    if (!move_uploaded_file($this->action['tmp_name'], $documentPath)) {
                         throw new Exception("Échec de l'upload du document.");
                     }
                 } else {

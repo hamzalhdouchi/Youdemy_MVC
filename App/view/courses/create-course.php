@@ -22,7 +22,7 @@
 //   $Categorei = $_POST['Categorei'];
 //   $Tags = $_POST['Tags'];
 //   $About = htmlspecialchars($_POST['About']);
-//   $image = $_FILES['image'];
+//   $image = ;
 //   $centenu = $_POST['centenu_video'];
 //   $coursVideo->setid($idE); $coursVideo->setTitre($title); $coursVideo->setSlgun($slug); $coursVideo->setDescription($About);$coursVideo->setVideo($centenu); $coursVideo->setcategorie_id($Categorei); $coursVideo->setTags_id($Tags); $coursVideo->setimage($image);
 //   $coursVideo->ajouterCours();
@@ -260,12 +260,14 @@
                                 <div>
                                   <form
                                     method="POST"
-                                    action=""
+                                    action="ajouterCours"
                                     enctype="multipart/form-data"
                                     class="p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8"
                                     data-aos="fade-up">
                                     <div class="grid grid-cols-1 mb-15px gap-15px">
+                                      <input type="hidden" name="Type" value="video">
                                       <div>
+
                                         <label class="mb-3 block font-semibold">Course Title</label>
                                         <input
                                           type="text"
@@ -487,9 +489,10 @@
                                   <form
                                     method="POST"
                                     enctype="multipart/form-data"
-                                    action=""
+                                    action="ajouterCours"
                                     class="p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8"
                                     data-aos="fade-up">
+                                    <input type="hidden" name="Type" value="document">
                                     <div class="grid grid-cols-1 mb-15px gap-15px">
                                       <div>
                                         <label class="mb-3 block font-semibold">Course Title</label>

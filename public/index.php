@@ -38,10 +38,14 @@ $router->add('GET', '/Statistique', AuthController::class, 'AdminStatistique');
 
 $router->add('GET', '/Cours', CoursController::class, 'afficherTousLesCours');
 $router->add('POST', '/AjouterCours', CoursController::class, 'ajouterCours');
+$router->add('GET', '/Create', CoursController::class, 'createCour');
+$router->add('POST', '/ajouterCours', CoursController::class, 'ajouterCours');
 
 $router->add('GET', '/Etudiant', EtudiantController::class, 'myCours');
 
 $router->add('GET', '/Teacher', TeacherController::class, 'showTeacherDashboard');
+
+
 
 
 
