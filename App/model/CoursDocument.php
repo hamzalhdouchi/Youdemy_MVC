@@ -107,62 +107,69 @@ class CoursDocument extends Cours
 
     
     public function afficherCours()
-    {
-        try {
-            $sql = "SELECT 
-            C.*, 
-            U.nom AS enseignant_nom, 
-            U.prenom AS enseignant_prenom,
-            STRING_AGG(TG.nom_Tag, ', ') AS tags,
-            STRING_AGG(TG.color, ', ') AS couleurs
-        FROM cours AS C
-        JOIN utilisateur AS U ON U.id = C.Enseignant_id
-        LEFT JOIN courstag AS T ON T.idCours = C.id_cours
-        LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
-        WHERE U.id = :id AND C.type = 'document'
-        GROUP BY C.id_cours, U.nom, U.prenom";
+{
+    try {
         
+        $sql = "SELECT 
+                    C.*, 
+                    U.nom AS enseignant_nom, 
+                    U.prenom AS enseignant_prenom,
+                    STRING_AGG(TG.nom_Tag, ', ') AS tags,
+                    STRING_AGG(TG.color, ', ') AS couleurs
+                FROM cours AS C
+                JOIN utilisateur AS U ON U.id = C.Enseignant_id
+                LEFT JOIN courstag AS T ON T.idCours = C.id_cours
+                LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
+                WHERE U.id = :id AND C.type = 'document'
+                GROUP BY C.id_cours, U.nom, U.prenom";
 
-            $stmt = $this->connect->prepare($sql);
-            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-            $stmt->execute();
+        
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT); 
+        $stmt->execute();
 
-            $courses = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $courses[] = [
-                    'Cours' => new CoursDocument(
-                        $row['id_cours'],
-                        $row['titre'],
-                        $row['description'],
-                        $row['Slgan'],
-                        null,
-                        null,
-                        $row['Type'],
-                        $row['image'],
-                        $row['contenu']
-                    ),
-                    'User' => new User(
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        $row['enseignant_nom'],
-                        $row['enseignant_prenom']
-                    ),
-                    'Tags' => new Tags(
-                        null,
-                        $row['tags'],
-                        $row['couleurs']
-                    )
-                ];
-            }
-
-            return $courses;
-        } catch (PDOException $e) {
-            throw new Exception("Erreur de base de données : " . $e->getMessage());
+        
+        $courses = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            
+            $courses[] = [
+                'Cours' => new CoursDocument(
+                    $row['id_cours'], 
+                    $row['titre'], 
+                    $row['description'], 
+                    $row['Slgan'], 
+                    null, 
+                    null, 
+                    $row['Type'], 
+                    $row['image'], 
+                    $row['contenu'] 
+                ),
+                'User' => new User(
+                    null, 
+                    null, 
+                    null, 
+                    null, 
+                    null, 
+                    $row['enseignant_nom'], 
+                    $row['enseignant_prenom'] 
+                ),
+                'Tags' => new Tags(
+                    null, 
+                    $row['tags'], 
+                    $row['couleurs'] 
+                )
+            ];
         }
+
+        
+        return $courses;
+
+    } catch (PDOException $e) {
+        
+        throw new Exception("Erreur de base de données : " . $e->getMessage());
     }
+}
+
 
     // Modifier un cours de type document
     public function Modifier($id)
@@ -313,4 +320,27 @@ class CoursDocument extends Cours
             throw new Exception("Erreur : Impossible de récupérer le cours. " . $e->getMessage());
         }
     }
+
+    public function modiferCours($id)
+    {
+        $sql = "SELECT * FROM cours where id_cours = :id and type = 'document'";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $resutl = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($resutl) {
+            $CoursDocument = new CoursDocument(
+                $resutl['id_cours'],
+                $resutl['titre'],
+                $resutl['description'],
+                $resutl['Slgan'],
+                $resutl['Image'],
+                $resutl['contenu'],
+                $resutl['action']
+            );
+
+            return $CoursDocument;
+    }
+
+}
 }

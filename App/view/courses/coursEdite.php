@@ -1,65 +1,65 @@
 <?php
 
-require __DIR__ . "/../../controllers/CourseController.php";
-require __DIR__ . "/../../controllers/categorei.php";
-require __DIR__ . "/../../controllers/CoursVideo.php";
+// require __DIR__ . "/../../controllers/CourseController.php";
+// require __DIR__ . "/../../controllers/categorei.php";
+// require __DIR__ . "/../../controllers/CoursVideo.php";
 
-$tags = new Tags();
+// $tags = new Tags();
 
-$tag =  $tags->getTags();
-$idE = $_SESSION["user_id"];
-$idC = $_GET["id"];
-$categorei = new Categorie();
+// $tag =  $tags->getTags();
+// $idE = $_SESSION["user_id"];
+// $idC = $_GET["id"];
+// $categorei = new Categorie();
 
-$categoreis = $categorei->getCategories();
-$coursVideo = new CoursVideo();
-$coursDecoment = new CoursDocument();
-$coursDecoment->setid($idE);
-$coursDecoment->setid($idE);
-$resultVideo = $coursVideo->modiferCours($idC);
-$Document = $coursDecoment->modiferCours($idC);
+// $categoreis = $categorei->getCategories();
+// $coursVideo = new CoursVideo();
+// $coursDecoment = new CoursDocument();
+// $coursDecoment->setid($idE);
+// $coursDecoment->setid($idE);
+// $resultVideo = $coursVideo->modiferCours($idC);
+// $Document = $coursDecoment->modiferCours($idC);
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModiferVidio'])) {
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModiferVidio'])) {
 
-    $title = htmlspecialchars($_POST['Title']);
-    $slug = htmlspecialchars($_POST['Slug']);
-    $Categorei = $_POST['Categorei'];
-    $Tags = $_POST['Tags'];
-    $About = htmlspecialchars($_POST['About']);
-    $centenu = $_POST['centenu_video'];
-    $image = $_FILES['image'];
-    $coursVideo->setid($idE);
-    $coursVideo->setTitre($title);
-    $coursVideo->setSlgun($slug);
-    $coursVideo->setDescription($About);
-    $coursVideo->setVideo($centenu);
-    $coursVideo->setcategorie_id($Categorei);
-    $coursVideo->setTags_id($Tags);
-    $coursVideo->setimage($image);
-    $coursVideo->Modifer($idC);
-}
+//     $title = htmlspecialchars($_POST['Title']);
+//     $slug = htmlspecialchars($_POST['Slug']);
+//     $Categorei = $_POST['Categorei'];
+//     $Tags = $_POST['Tags'];
+//     $About = htmlspecialchars($_POST['About']);
+//     $centenu = $_POST['centenu_video'];
+//     $image = $_FILES['image'];
+//     $coursVideo->setid($idE);
+//     $coursVideo->setTitre($title);
+//     $coursVideo->setSlgun($slug);
+//     $coursVideo->setDescription($About);
+//     $coursVideo->setVideo($centenu);
+//     $coursVideo->setcategorie_id($Categorei);
+//     $coursVideo->setTags_id($Tags);
+//     $coursVideo->setimage($image);
+//     $coursVideo->Modifer($idC);
+// }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
 
-    $title = htmlspecialchars($_POST['Title']);
-    $slug = htmlspecialchars($_POST['Slug']);
-    $Categorei = $_POST['Categorei'];
-    $Tags = $_POST['Tags'];
-    $About = htmlspecialchars($_POST['About']);
-    $image = $_FILES['image'];
+//     $title = htmlspecialchars($_POST['Title']);
+//     $slug = htmlspecialchars($_POST['Slug']);
+//     $Categorei = $_POST['Categorei'];
+//     $Tags = $_POST['Tags'];
+//     $About = htmlspecialchars($_POST['About']);
+//     $image = $_FILES['image'];
 
-    $centenu = $_FILES['centenu_pdf'];
-    $coursDecoment->setid($idE);
-    $coursDecoment->setTitre($title);
-    $coursDecoment->setSlgun($slug);
-    $coursDecoment->setDescription($About);
-    $coursDecoment->setDocument($centenu);
-    $coursDecoment->setcategorie_id($Categorei);
-    $coursDecoment->setTags_id($Tags);
-    $coursDecoment->setimage($image);
-    $coursDecoment->Modifier($idC);
-}
+//     $centenu = $_FILES['centenu_pdf'];
+//     $coursDecoment->setid($idE);
+//     $coursDecoment->setTitre($title);
+//     $coursDecoment->setSlgun($slug);
+//     $coursDecoment->setDescription($About);
+//     $coursDecoment->setDocument($centenu);
+//     $coursDecoment->setcategorie_id($Categorei);
+//     $coursDecoment->setTags_id($Tags);
+//     $coursDecoment->setimage($image);
+//     $coursDecoment->Modifier($idC);
+// }
 
 ?>
 
@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
                                                                 <div>
                                                                     <form
                                                                         method="POST"
-                                                                        action=""
+                                                                        action="/ModifierVideo/<?= isset($resultVideo) ? $resultVideo->getId() : "" ?>"
                                                                         enctype="multipart/form-data"
                                                                         class="p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8"
                                                                         data-aos="fade-up">
@@ -465,7 +465,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ModifierDocument'])) {
                                                                     <form
                                                                         method="POST"
                                                                         enctype="multipart/form-data"
-                                                                        action=""
+                                                                        action="/ModifierDocument/<?= isset($Document) ? $Document->getId() : "" ?>"
                                                                         class="p-10px md:p-10 lg:p-5 2xl:p-10 bg-darkdeep3 dark:bg-transparent text-sm text-blackColor dark:text-blackColor-dark leading-1.8"
                                                                         data-aos="fade-up">
                                                                         <div class="grid grid-cols-1 mb-15px gap-15px">

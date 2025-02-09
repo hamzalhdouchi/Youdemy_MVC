@@ -401,8 +401,9 @@
             $categorie = $row[0];
             $cour = $row[1];
           ?>
-            <a
-              href="./course_By_categorei.php?idC=<?= $categorie->getIdC() ?>"
+            <form
+            action="/course_By_categorei/<?= $categorie->getIdC() ?>"
+            method="POST"
               class="pt-5 pb-15px px-30px rounded-5px bg-borderColor text-center hover:bg-secondaryColor dark:bg-borderColor-dark dark:hover:bg-secondaryColor group"
               data-aos="fade-up">
               <h4

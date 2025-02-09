@@ -143,11 +143,12 @@
               </h5>
               <ul>
 
-                <li
+              <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center" active>
-                  <a
-                    href="../courses/instructor-course.php"
-                    class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor  text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
+                  <form
+                    action="/afficherCours"
+                    method="GET"
+                    class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="24"
@@ -163,15 +164,19 @@
                       <path
                         d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                     </svg>
-                    Course
-                  </a>
+                    <button>
+
+                      Course
+                    </button>
+                    </form>
 
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
-                    href="../teacher/Etudiant.php"
-                    class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
+                  <form
+                    action="Teacher"
+                    method="GET"
+                    class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor  text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="24"
@@ -185,7 +190,11 @@
                       <path
                         d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    Etudeint</a>
+                    <button>
+
+                      Etudeint
+                    </button>
+                  </form>
                 </li>
 
               </ul>
@@ -195,10 +204,10 @@
               <ul>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <form action="" method="post">
+                  <form action="/inscription" method="GET">
                     <button
                       type="submit"
-                      name="logout"
+                      
                       class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"

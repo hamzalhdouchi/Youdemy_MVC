@@ -92,35 +92,66 @@ class CoursVideo extends Cours
         try {
             $coursObjects = [];
             $sql = "SELECT 
-                    C.*, 
-                    U.nom AS enseignant_nom, 
-                    U.prenom AS enseignant_prenom, 
-                    GROUP_CONCAT(TG.nom_Tag SEPARATOR ', ') AS tags,
-                    GROUP_CONCAT(TG.color SEPARATOR ', ') AS couleurs
-                FROM cours AS C
-                JOIN utilisateur AS U ON U.id = C.Enseignant_id
-                LEFT JOIN courstag AS T ON T.idCours = C.id_cours
-                LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag";
+                        C.*, 
+                        U.nom AS enseignant_nom, 
+                        U.prenom AS enseignant_prenom, 
+                        STRING_AGG(TG.nom_Tag, ', ') AS tags,
+                        STRING_AGG(TG.color, ', ') AS couleurs
+                    FROM cours AS C
+                    JOIN utilisateur AS U ON U.id = C.Enseignant_id
+                    LEFT JOIN courstag AS T ON T.idCours = C.id_cours
+                    LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag";
 
             if ($this->id) {
                 $sql .= " WHERE U.id = :id AND C.type = 'Video'";
             }
 
-            $sql .= " GROUP BY C.id_cours";
+            $sql .= " GROUP BY C.id_cours, C.titre, C.description, U.nom, U.prenom";
 
             $stmt = $this->connect->prepare($sql);
-
             if ($this->id) {
                 $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             }
-
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $coursObjects[] = [
+                    'Cours' => new CoursDocument(
+                        $row['id_cours'],
+                        $row['titre'],
+                        $row['description'],
+                        $row['slgan'],
+                        null,
+                        null,
+                        $row['type'],
+                        $row['image'],
+                        $row['contenu']
+                    ),
+                    'User' => new User(
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        $row['enseignant_nom'],
+                        $row['enseignant_prenom']
+                    ),
+                    'Tags' => new Tags(
+                        null,
+                        $row['tags'],
+                        $row['couleurs']
+                    )
+                ];
+            }
+
+            return $coursObjects;
+
         } catch (PDOException $e) {
             throw new Exception("Erreur de base de données : " . $e->getMessage());
         }
     }
 
+    
     public function supprimerCours()
     {
         try {
@@ -168,7 +199,7 @@ class CoursVideo extends Cours
                     SET titre = :titre, 
                         description = :description, 
                         Slgan = :Slgan, 
-                        Type = 'Video', 
+                        type = 'video', 
                         Enseignant_id = :idE, 
                         contenu = :contenu, 
                         categorie_id = :categorie, 
@@ -233,21 +264,25 @@ class CoursVideo extends Cours
         }
     }
 
-    public function afficherCoursSpecifique()
+    public function modiferCours($id)
     {
-        try {
-            $sql = "SELECT * FROM cours C
-                    JOIN utilisateur U ON C.Enseignant_id = U.id
-                    LEFT JOIN courstag AS T ON T.idCours = C.id_cours
-                    LEFT JOIN tag AS TG ON TG.id_Tag = T.idTag
-                    WHERE type = 'video' AND C.id_cours = :Cours_id HAVING C.action = 1";
+        $sql = "SELECT * FROM cours where id_cours = :id and type = 'video'";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $resutl = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($resutl) {
+            $CoursDocument = new CoursDocument(
+                $resutl['id_cours'],
+                $resutl['titre'],
+                $resutl['description'],
+                $resutl['slgan'],
+                $resutl['image'],
+                $resutl['contenu'],
+                $resutl['action']
+            );
 
-            $Stmt = $this->connect->prepare($sql);
-            $Stmt->bindParam(":Cours_id", $this->id, PDO::PARAM_INT);
-            $Stmt->execute();
-            return $Stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Exception("Erreur de base de données : " . $e->getMessage());
+            return $CoursDocument;
         }
     }
 

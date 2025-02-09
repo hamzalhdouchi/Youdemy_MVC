@@ -1,29 +1,29 @@
 <?php
 
-require_once __DIR__ . "/../../controllers/CoursVideo.php";
-require_once __DIR__ . "/../../controllers/CoursDocument.php";
-require_once __DIR__ . "/../../controllers/CoursVideo.php";
-require_once __DIR__ . "/../../controllers/CourseController.php";
-$idE = $_SESSION["user_id"];
+// require_once __DIR__ . "/../../controllers/CoursVideo.php";
+// require_once __DIR__ . "/../../controllers/CoursDocument.php";
+// require_once __DIR__ . "/../../controllers/CoursVideo.php";
+// require_once __DIR__ . "/../../controllers/CourseController.php";
+// $idE = $_SESSION["user_id"];
 
-$coursDecoment = new CoursDocument();
-$coursVideo = new CoursVideo();
-$coursDecoment->setid($idE);
-$coursVideo->setid($idE);
-$coursVide = $coursVideo->afficherCours();
-$couess = $coursDecoment->afficherCours();
+// $coursDecoment = new CoursDocument();
+// $coursVideo = new CoursVideo();
+// $coursDecoment->setid($idE);
+// $coursVideo->setid($idE);
+// $coursVide = $coursVideo->afficherCours();
+// $couess = $coursDecoment->afficherCours();
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['deletecorse'])) {
-  $coursVideo->setid($_POST['id_cours']);
-  $coursVideo->deletCours();
-}
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['deletecorse'])) {
+//   $coursVideo->setid($_POST['id_cours']);
+//   $coursVideo->deletCours();
+// }
 
-if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
+// if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
 
-  session_destroy();
-  header("Location: ../auth/login.php");
-  exit;
-}
+//   session_destroy();
+//   header("Location: ../auth/login.php");
+//   exit;
+// }
 
 ?>
 
@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
 
           <div>
             <a
-              href="./create-course.php"
+              href="/Create"
               class="text-size-15 text-whiteColor bg-primaryColor px-25px py-10px border border-primaryColor hover:text-primaryColor hover:bg-whiteColor rounded group text-nowrap flex gap-1 items-center">
               Create a New Course
               <svg
@@ -187,8 +187,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
 
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark flex justify-between items-center" active>
-                  <a
-                    href="./instructor-course.php"
+                  <form
+                    action="/afficherCours"
+                    method="GET"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor  text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -205,14 +206,18 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                       <path
                         d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                     </svg>
-                    Course
-                  </a>
+                    <button>
+
+                      Course
+                    </button>
+                    </form>
 
                 </li>
                 <li
                   class="py-10px border-b border-borderColor dark:border-borderColor-dark">
-                  <a
-                    href="../teacher/Etudiant.php"
+                  <form
+                    action="Teacher"
+                    method="GET"
                     class="text-contentColor dark:text-contentColor-dark hover:text-primaryColor dark:hover:text-primaryColor leading-1.8 flex gap-3 text-nowrap"><svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -227,7 +232,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                       <path
                         d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                     </svg>
-                    Etudeint</a>
+                    <button>
+
+                      Etudeint
+                    </button>
+                  </form>
                 </li>
 
               </ul>
@@ -309,8 +318,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                                   <?php
                                   $tags = $Tage->getName();
                                   $couleurs = $Tage->getColor();
-                                  $tags = explode(',', $tags);
-                                  $couleurs = explode(',', $couleurs);
+                                  $tags = $tags ? explode(',', $tags) : []; 
+                                  $couleurs = $couleurs ? explode(',', $couleurs) : [];
                                   foreach ($tags as $index => $tag):
                                     $color = trim($couleurs[$index]);
                                   ?>
@@ -329,14 +338,16 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['logout'])) {
                               </a>
                               <!-- Edit and Delete buttons -->
                               <div class="flex justify-between items-center border-t border-borderColor pt-3">
-                                <a href="./coursEdite.php?id=<?= $cour->getId() ?>" class="flex items-center gap-1 text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
+                                <form  action="/coursEdite/<?= $cour->getId() ?>" method="post" class="flex items-center gap-1 text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                   </svg>
-                                  Edit
-                                </a>
-                                <form action="" method="post">
+                                  <button type="submit">
+                                    Edit
+                                  </button>
+                                  </form>
+                                <form action="/DeleteCour" method="post">
                                   <input type="hidden" name="id_cours" value="<?= $cour->getId() ?>">
                                   <button type="submit" name="deletecorse" class="flex items-center gap-1 text-sm font-bold text-blackColor dark:text-blackColor-dark hover:text-primaryColor dark:hover:text-primaryColor">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">

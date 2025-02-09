@@ -34,21 +34,20 @@ class CoursController
     }
 
     // Supprimer un cours
-    public function supprimerCours($id)
+    public function supprimerCours()
     {
+        $id = $_POST['id_cours'];
         $this->coursModel->setId($id);
         $this->coursModel->deletCours();
-        header("Location: ../admin/cours.php");
+        header("Location: /afficherCours");
         exit;
     }
 
-    // Afficher les statistiques des cours
     public function afficherStatistiquesCours()
     {
         return CoursDocument::StatiqueCours();
     }
 
-    // Afficher tous les cours avec pagination
     public function afficherTousLesCours()
     {
         $itemsPerPage = 9;
@@ -66,13 +65,11 @@ class CoursController
         require_once __DIR__ . "/../view/courses/HOME.php";
     }
 
-    // Compter le nombre total de cours
     public function compterCours()
     {
         return CoursDocument::countCours();
     }
 
-    // Afficher un cours par ID
     public function afficherCoursParId($cours_id)
     {
         try {
@@ -83,37 +80,10 @@ class CoursController
         }
     }
 
-    // Modifier un cours de type document
-    public function modifierCoursDocument($id, $titre, $description, $slgan, $categorie_id, $tags_id, $image, $contenu_document)
-    {
-        try {
-            $this->coursModel->setTitre($titre);
-            $this->coursModel->setDescription($description);
-            $this->coursModel->setSlgun($slgan);
-            $this->coursModel->setCategorieId($categorie_id);
-            $this->coursModel->setTagsId($tags_id);
-            $this->coursModel->setImage($image);
-            $this->coursModel->setDocument($contenu_document);
-
-            if ($this->coursModel->Modifier($id)) {
-                echo "<script>alert('Cours modifié avec succès !');</script>";
-                header("Location: ../views/cours.php");
-                exit;
-            } else {
-                throw new Exception("Erreur lors de la modification du cours.");
-            }
-        } catch (Exception $e) {
-            echo "<script>alert('" . addslashes($e->getMessage()) . "');</script>";
-        }
-    }
-
-    // Ajouter un cours (document ou vidéo)
     public function ajouterCours()
     {
         try {
             if ($_POST['Type'] == 'document') {
-
-                // Configuration des données pour un cours de type document
                 $idE = $_SESSION['user_id'];
                 $this->coursModel->setid($idE);
                 $this->coursModel->setTitre($_POST['Title']);
@@ -156,10 +126,13 @@ class CoursController
         }
     }
 
-    public function afficherCoursVideo($id = null)
+    public function afficherCours()
     {
         try {
-            return $this->coursVideoModel->afficherCours($id);
+            $id = $_SESSION['user_id'];
+            $coursVide = $this->coursVideoModel->afficherCours($id);
+            $couess = $this->coursModel->afficherCours($id);
+            require_once __DIR__ . "/../view/courses/instructor-course.php";
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return [];
@@ -177,10 +150,57 @@ class CoursController
         }
     }
 
-    public function modifierCoursVideo($id, $data)
+    public function modifierCoursVideo($id)
     {
         try {
-            $this->coursVideoModel->mettreAJourCours($id, $data);
+            $idE = $_SESSION['user_id'];
+            $title = htmlspecialchars($_POST['Title']);
+                $slug = htmlspecialchars($_POST['Slug']);
+                $Categorei = $_POST['Categorei'];
+                var_dump($_POST['Slug']);
+                if (isset($_POST['Tags']) && is_array($_POST['Tags'])) {
+                    $Tags = $_POST['Tags'];  // $Tags is now an array
+                
+                $About = htmlspecialchars($_POST['About']);
+                $centenu = $_POST['centenu_video'];
+                $image = $_FILES['image'];
+                $this->coursVideoModel->setid($idE);
+                $this->coursVideoModel->setTitre($title);
+                $this->coursVideoModel->setSlgun($slug);
+                $this->coursVideoModel->setDescription($About);
+                $this->coursVideoModel->setVideo($centenu);
+                $this->coursVideoModel->setCategorieId($Categorei);
+                $this->coursVideoModel->setTagsId($Tags);
+                $this->coursVideoModel->setimage($image);
+                }
+            $this->coursVideoModel->mettreAJourCours($id);
+            header("Location: /afficherCours");
+            exit;
+        } catch (Exception $e) {
+            echo "Erreur : " . $e->getMessage();
+        }
+    }
+
+    public function modifierCoursDocument($id)
+    {
+        try {
+            $idE = $_SESSION['user_id'];
+            $title = htmlspecialchars($_POST['Title']);
+                $slug = htmlspecialchars($_POST['Slug']);
+                $Categorei = $_POST['Categorei'];
+                $Tags = $_POST['Tags'];
+                $About = htmlspecialchars($_POST['About']);
+                $centenu = $_POST['centenu_video'];
+                $image = $_FILES['image'];
+                $this->coursModel->setid($idE);
+                $this->coursModel->setTitre($title);
+                $this->coursModel->setSlgun($slug);
+                $this->coursModel->setDescription($About);
+                $this->coursModel->setDocument($centenu);
+                $this->coursModel->setCategorieId($Categorei);
+                $this->coursModel->setTagsId($Tags);
+                $this->coursModel->setimage($image);
+            $this->coursModel->Modifier($id);
             header("Location: /path/to/success/page");
             exit;
         } catch (Exception $e) {
@@ -198,10 +218,18 @@ class CoursController
         }
     }
 
-    public function afficherCoursSpecifiqueVideo($id)
+    public function afficherCoursSpecifique($id)
     {
         try {
-            return $this->coursVideoModel->afficherCoursSpecifique($id);
+            $idE = $_SESSION['user_id'];
+            $tag = $this->tagsModel->getTags();
+            $categoreis = $this->categorieModel->getCategories();
+            $this->coursModel->setid($idE);
+            $this->coursModel->setid($idE);
+            $resultVideo = $this->coursVideoModel->modiferCours($id);
+            $Document = $this->coursModel->modiferCours($id);
+
+            require_once __DIR__."/../view/courses/coursEdite.php";
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return null;
@@ -211,7 +239,8 @@ class CoursController
     public function afficherCoursDashboard()
     {
         try {
-            return $this->coursVideoModel->afficherCoursDashboard();
+            $result = $this->coursVideoModel->afficherCoursDashboard();
+            require_once __DIR__. "/../view/courses/course_By_categorei.php";
         } catch (Exception $e) {
             echo "Erreur : " . $e->getMessage();
             return [];

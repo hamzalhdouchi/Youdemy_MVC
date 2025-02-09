@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__ . "/../../controllers/CoursVideo.php";
-$id_categorei = $_GET['idC'];
-$Cours = new CoursVideo();
+// require_once __DIR__ . "/../../controllers/CoursVideo.php";
+// $id_categorei = $_GET['idC'];
+// $Cours = new CoursVideo();
 
-$result = $Cours->AffecherCoursByCategorei($id_categorei);
-if ($result == null) {
-  header("Location: ../courses/HOME.php");
-  exit;
-}
+// $result = $Cours->AffecherCoursByCategorei($id_categorei);
+// if ($result == null) {
+//   header("Location: ../courses/HOME.php");
+//   exit;
+// }
 
 ?>
 

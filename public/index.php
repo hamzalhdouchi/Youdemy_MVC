@@ -39,7 +39,13 @@ $router->add('GET', '/Statistique', AuthController::class, 'AdminStatistique');
 $router->add('GET', '/Cours', CoursController::class, 'afficherTousLesCours');
 $router->add('POST', '/AjouterCours', CoursController::class, 'ajouterCours');
 $router->add('GET', '/Create', CoursController::class, 'createCour');
-$router->add('POST', '/ajouterCours', CoursController::class, 'ajouterCours');
+$router->add('GET', '/afficherCours', CoursController::class, 'afficherCours');
+$router->add('POST', '/DeleteCour', CoursController::class, 'supprimerCours');
+$router->add('POST', '/coursEdite/{id}', CoursController::class, 'afficherCoursSpecifique');
+$router->add('POST', '/ModifierDocument/{id}', CoursController::class, 'modifierCoursDocument');
+$router->add('POST', '/ModifierVideo/{id}', CoursController::class, 'modifierCoursVideo');
+$router->add('POST', '/course_By_categorei/{id}', CoursController::class, 'afficherCoursParCategorie');
+
 
 $router->add('GET', '/Etudiant', EtudiantController::class, 'myCours');
 
